@@ -438,7 +438,15 @@ main {
 
 .bucket__item {
     display: block;
+    position: relative;
     margin-top: 16px;
+}
+
+.line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: var(--rulers-rulers, rgba(0, 0, 0, 0.10));
 }
 
 .bucket__item-info {
@@ -633,12 +641,7 @@ main {
     display: none;
 }
 
-.line {
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background-color: var(--rulers-rulers, rgba(0, 0, 0, 0.10));
-}
+
 
 
 
