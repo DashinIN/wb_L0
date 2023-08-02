@@ -10,15 +10,11 @@
 }
 
 @font-face {
-	font-family: Segoe_UI;
-	src: url('SegoeUI.eot');
-	src: local('Segoe UI'), local('SegoeUI'),
-		url('SegoeUI.eot?#iefix') format('embedded-opentype'),
-		url('SegoeUI.woff') format('woff'),
-		url('SegoeUI.ttf') format('truetype');
-	font-weight: 400;
-	font-style: normal;
-}
+    font-family: Segoe_UI;
+    font-style: normal;
+    font-weight: 400;
+    src: local('Segoe WP'), url('SegoeWP.woff') format('woff');
+    }
 
 * {
     margin: 0;
@@ -30,6 +26,7 @@
     --system-violet: #6725A8;
     --system-white: #FFF;
     --system--orange: #F55123;
+    --system-black: #000;
 }
 
 input, textarea, button, select {
@@ -238,7 +235,7 @@ body {
         padding: 0px 20px;
         height: 100%;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 400;
         line-height: 24px;
         opacity: 0.5;
     }
@@ -247,7 +244,7 @@ body {
         font-family: Segoe_UI;
         color: var(--system-white);
         font-size: 18px;
-        font-weight: 600;
+        font-weight: 400;
         line-height: 24px;
         opacity: 0.5;
         }
@@ -304,7 +301,7 @@ body {
         font-family: Segoe_UI;
         font-size: 13px;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 400;
         line-height: 16px; /* 123.077% */
     }
 
@@ -332,3 +329,96 @@ body {
 
 }
 
+.bucket {
+    background-color: rgba(0, 0, 0, 0.10);
+}
+
+.bucket__item {
+    display: block;
+}
+
+.bucket__item-info {
+    display: flex;
+    gap: 16px;
+}
+
+.bucket__item-image {
+    position: relative;
+}
+
+.bucket__item-image input {
+    position: absolute;
+}
+
+.image__wrapper {
+    width: 80px;
+    height: 106px;
+    border-radius: 8px;
+    overflow: hidden;
+background: linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%), url(<path-to-image>), lightgray 50% / cover no-repeat;
+}
+
+.image__wrapper img {
+    width: 100%;
+    height: 100%;
+}
+
+.bucket__item-infoprice {
+    display: flex;
+}
+
+.bucket__item-control {
+    display: flex;
+}
+
+.bucket__item-counter {
+    display: flex;
+    background-color: var(--system-white);
+    color: var(--system-black);
+}
+
+.bucket__item-counter button {
+    color: var(--system-black);
+}
+
+.bucket__item-icons {
+    display: flex;
+}
+
+.bucket__item-price {
+    display: none;
+}
+
+.crossed {
+    text-decoration: line-through;
+}
+
+
+
+
+@media (min-width: 1024px) {
+    .bucket__item-price {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .bucket__item-infoprice  {
+        display: none;
+    }
+
+    .bucket__item {
+        display: flex;
+    }
+
+    .bucket__item-image {
+       display: flex;
+    }
+    
+    .bucket__item-image input {
+        position: static;
+    }
+
+    .bucket__item-control {
+        display: block;
+    }
+}
