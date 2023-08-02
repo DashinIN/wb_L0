@@ -16,6 +16,17 @@
     src: local('Segoe WP'), url('SegoeWP.woff') format('woff');
     }
 
+    
+    @font-face { 
+        font-family: Segoe_UI;
+        src: url("./SegoeUIBold.eot");
+        src: url("./SegoeUIBold.eot?#iefix")format("embedded-opentype"),
+        url("./SegoeUIBold.woff") format("woff"),
+        url("./SegoeUIBold.ttf") format("truetype");
+        font-style: normal;
+        font-weight: 700;
+    }
+
 * {
     margin: 0;
     padding: 0;
@@ -27,6 +38,15 @@
     --system-white: #FFF;
     --system--orange: #F55123;
     --system-black: #000;
+}
+
+aside, nav, footer, header, section, main {
+	display: block;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-size: inherit;
+	font-weight: inherit;
 }
 
 input, textarea, button, select {
@@ -57,7 +77,7 @@ button:focus, button:active {
 
 body {
     font-family: Segoe_UI;
-    width: 100vw;
+    background-color: var(--system-violet);
 }
 
 
@@ -329,25 +349,129 @@ body {
 
 }
 
+main {
+    border-radius: 24px 24px 0px 0px;
+    background-color: rgb(229,229,229);
+    
+}
+
 .bucket {
-    background-color: rgba(0, 0, 0, 0.10);
+    padding: 0px 16px;
+}
+
+.bucket__title {
+    color: var(--system-black);
+    padding-top: 15px;
+    font-family: Segoe_UI;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px; /* 140% */
+    letter-spacing: -0.2px;
+}
+
+.bucket__menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.bucket__menu-check input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.bucket__menu-check input+label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+  }
+  
+.bucket__menu-check input+label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 1px solid #d3d4dd;
+    border-radius: 6px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+}
+
+.bucket__menu-check input:checked+label::before {
+    background-image: url(../assets/checkbox.svg);
+}
+
+
+.bucket__menu-check {
+    display: flex;
+}
+
+.bucket__menu-check p{
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 150% */
+    margin-left: 11px;
+}
+
+.bucket__menu button {
+    margin-right: 5px;
 }
 
 .bucket__item {
     display: block;
+    margin-top: 16px;
 }
 
 .bucket__item-info {
     display: flex;
     gap: 16px;
+    padding: 12px 0;
 }
 
 .bucket__item-image {
     position: relative;
 }
 
+
+
 .bucket__item-image input {
     position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.bucket__item-image input+label {
+    display: inline-flex;
+    position: absolute;
+    align-items: center;
+    user-select: none;
+    left: 4px;
+    top: 4px;
+  }
+  
+.bucket__item-image input+label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 1px solid #d3d4dd;
+    border-radius: 6px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+}
+
+.bucket__item-image input:checked+label::before {
+    background-image: url(../assets/checkbox.svg);
+    border: 1px solid #CB11AB;
+    background-color: #CB11AB;
 }
 
 .image__wrapper {
@@ -355,7 +479,7 @@ body {
     height: 106px;
     border-radius: 8px;
     overflow: hidden;
-background: linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%), url(<path-to-image>), lightgray 50% / cover no-repeat;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 100%), url(<path-to-image>), lightgray 50% / cover no-repeat;
 }
 
 .image__wrapper img {
@@ -365,33 +489,144 @@ background: linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.05) 10
 
 .bucket__item-infoprice {
     display: flex;
+    align-items:last baseline;
+    letter-spacing: -0.8px;
+
+}
+
+.total {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+}
+
+.crossed {
+    text-decoration: line-through;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.20);
+    color: var(--system-gray, #A0A0A4);
+    /* Сайт/Caption */
+    font-family: Segoe_UI;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 123.077% */
+    margin-left: 8px;
+    letter-spacing: .43px;
+}
+
+.bucket__item-title {
+    margin-top: 3px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bucket__item-type {
+    margin-top: 7px;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 123.077% */
+}
+
+.bucket__item-saler {
+    color: var(--system-gray, #A0A0A4);
+    /* Сайт/Caption */
+    font-family: Segoe_UI;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 123.077% */
+    margin-top: 8px;
 }
 
 .bucket__item-control {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .bucket__item-counter {
     display: flex;
     background-color: var(--system-white);
     color: var(--system-black);
+    border-radius: 4px;
+    padding: 0 5px 0 4px;
+   
 }
 
 .bucket__item-counter button {
+    display: flex;
+    padding: 2px 5px 8px 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--rulers-rulers-input, rgba(0, 0, 0, 0.20));
+    text-align: center;
+    /* Сайт/Lead */
+    font-family: Segoe_UI;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 120% */
+    letter-spacing: -0.2px;
+}
+
+.bucket__item-counter input+button {
     color: var(--system-black);
+}
+
+.bucket__item-counter input{
+    display: flex;
+    width: 32px;
+    padding: 4.333px 0px 7.667px 0px;
+    font-family: Segoe_UI;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    text-align: center;
+    flex: 1 0 0;
+}
+
+.bucket__item-remain {
+    color:#FF3B30;
+    font-family: Segoe_UI;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 123.077% */
+    margin-left: 12px;
 }
 
 .bucket__item-icons {
     display: flex;
+    margin-left: 15px;
+}
+
+.bucket__item-icon {
+
+    padding: 0 12px;
+
 }
 
 .bucket__item-price {
     display: none;
 }
 
-.crossed {
-    text-decoration: line-through;
+.line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: var(--rulers-rulers, rgba(0, 0, 0, 0.10));
 }
+
 
 
 

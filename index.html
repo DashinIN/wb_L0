@@ -45,11 +45,26 @@
     </header>
     <main>
         <div class="bucket">
+            <div class="bucket__title">
+                Корзина
+            </div>
+            <div class="bucket__menu">
+                <div class="bucket__menu-check">
+                    <input type="checkbox"  id="bucket_all" name="bucket_all">
+                    <label for="bucket_all"></label>
+                    <p>Выбрать все</p>
+                </div>
+                <button>
+                    <img src="assets/arrowIcon-20.svg" alt="arrow">
+                </button>
+            </div>  
             <div class="bucket__row">
                 <div class="bucket__item">
+                    <div class="line"></div>
                     <div class="bucket__item-info">
                         <div class="bucket__item-image">
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox"  id="check__item1" name="check__item1">
+                            <label for="check__item1"></label>
                             <div class="image__wrapper">
                                 <img src="./assets/bucket-item1.png" alt="item1">
                             </div>
@@ -72,7 +87,7 @@
                     </div>
                     <div class="bucket__item-control">
                         <div class="bucket__item-counter">
-                            <button>-</button>
+                            <button>–</button>
                             <input type="number" placeholder="1">
                             <button>+</button>
                         </div>
@@ -97,9 +112,11 @@
                 </div>
 
                 <div class="bucket__item">
+                    <div class="line"></div>
                     <div class="bucket__item-info">
                         <div class="bucket__item-image">
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox"  id="check__item2" name="check__item2">
+                            <label for="check__item2"></label>
                             <div class="image__wrapper">
                                 <img src="./assets/bucket-item2.png" alt="item2">
                             </div>
@@ -122,22 +139,26 @@
                     </div>
                     <div class="bucket__item-control">
                         <div class="bucket__item-counter">
-                            <button>-</button>
-                            <input type="number" placeholder="200">
+                            <button>–</button>
+                            <input type="number" placeholder="255">
                             <button>+</button>
                         </div>
                         <div class="bucket__item-remain">
                 
                         </div>
                         <div class="bucket__item-icons">
+                            <button>
                             <img 
                             src="./assets/likeIcon-20.svg" 
                             alt="profile" 
                             class="bucket__item-icon">
+                            </button>
+                            <button>
                             <img 
                             src="./assets/deleteIcon-20.svg" 
                             alt="profile" 
                             class="bucket__item-icon">
+                            </button>
                         </div>
                     </div>
                     <div class="bucket__item-price">
@@ -148,9 +169,11 @@
 
 
                 <div class="bucket__item">
+                    <div class="line"></div>
                     <div class="bucket__item-info">
                         <div class="bucket__item-image">
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox"  id="check__item3" name="check__item3">
+                            <label for="check__item3"></label>
                             <div class="image__wrapper">
                                 <img src="./assets/bucket-item3.png" alt="item3">
                             </div>
@@ -173,7 +196,7 @@
                     </div>
                     <div class="bucket__item-control">
                         <div class="bucket__item-counter">
-                            <button>-</button>
+                            <button>–</button>
                             <input type="number" placeholder="2">
                             <button>+</button>
                         </div>
@@ -181,14 +204,18 @@
                             Осталось 2 шт.
                         </div>
                         <div class="bucket__item-icons">
+                            <button>
                             <img 
                             src="./assets/likeIcon-20.svg" 
                             alt="profile" 
                             class="bucket__item-icon">
+                             </button>
+                             <button>
                             <img 
                             src="./assets/deleteIcon-20.svg" 
                             alt="profile" 
                             class="bucket__item-icon">
+                        </button>
                         </div>
                     </div>
                     <div class="bucket__item-price">
