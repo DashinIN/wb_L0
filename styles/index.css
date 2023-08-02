@@ -74,6 +74,19 @@ button:focus, button:active {
     outline: none;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+
 
 body {
     font-family: Segoe_UI;
@@ -632,6 +645,8 @@ main {
 
 
 @media (min-width: 1024px) {
+
+  
     .bucket__item-price {
         display: flex;
         flex-direction: column;
@@ -643,17 +658,63 @@ main {
 
     .bucket__item {
         display: flex;
+        justify-content: space-between;
     }
 
     .bucket__item-image {
        display: flex;
+        height: 96px;
+        justify-content: center;
+        align-items: center;
     }
-    
-    .bucket__item-image input {
+  
+    .bucket__item-image input+label {
+        display: inline-flex;
         position: static;
+        align-items: center;
+        user-select: none;
+        margin-right: 12px;
     }
+
+    .bucket__item-text {
+        width: 275px;
+    }
+
+    .bucket__item-title {
+        max-height: none;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; /* 150% */
+    }
+
+    .bucket__item-part {
+        display: flex;
+        justify-content: space-between;
+        width: 266px;
+    }
+
 
     .bucket__item-control {
         display: block;
+        padding: 8px 0;
     }
+
+    .bucket__item-remain, 
+    .bucket__item-icons {
+        margin-top: 8px;
+    }
+
+    .line {
+        display: none;
+    }
+    .bucket__item:nth-child(1) .line {
+        display: block;
+    }
+
+    .bucket__item-price {
+        display: flex;
+        align-items: flex-end;
+    }
+    
 }
