@@ -1055,3 +1055,65 @@ main {
 .delivery__return p span{
     color: #0CB477;
 }
+
+@media (min-width: 1024px) {
+
+    .delivery {
+        margin-inline: 24px;
+        padding-inline: 24px;
+    }
+
+    .delivery__head {
+        margin-bottom: 16px;
+    }
+
+    .delivery__title {
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 32px; /* 133.333% */
+        letter-spacing: -0.24px;
+
+    }
+
+    .delivery__type {
+        width: 153px;
+    }
+
+   
+    .delivery__place {
+        margin-left: 32px;
+    }
+    .delivery__price {
+        display: flex;
+    }
+    .delivery__price p {
+        width: 153px;
+    }
+    .delivery__price-amount {
+        margin-left: 32px;
+    }
+
+    .delivery__date p {
+        width: 153px;
+    }
+    .delivery__items {
+        margin-left: 32px;
+        margin-top: 0;
+    }
+
+    .delivery__point {
+        display: flex;
+    }
+
+    .delivery__date {
+        display: flex;
+        margin-bottom: 17px;
+    }
+    .delivery__return {
+        padding: 0;
+        margin-top: 24px;
+    }
+    
+    
+}
