@@ -1,6 +1,5 @@
 
 
-
 const bucketHideButton = document.querySelector('.bucket__menu button');
 const bucketRow = document.querySelector('.bucket__row');
 
@@ -21,6 +20,7 @@ const toggleBlock = (block, button) => {
 
 bucketHideButton.addEventListener('click', () => toggleBlock(bucketRow, bucketHideButton))
 missingHideButton.addEventListener('click', () => toggleBlock(missingRow, missingHideButton))
+
 
 
 const items = [
@@ -46,9 +46,6 @@ const controls = document.querySelectorAll('.bucket__item-counter')
 const minusButtons = document.querySelectorAll('.bucket__item-counter>button:nth-child(1)')
 const plusButtons = document.querySelectorAll('.bucket__item-counter>input+button')
 const leftFields = document.querySelectorAll('.bucket__item-remain')
-
-
-
 
 
 for (let i = 0; i <= controls.length; i++) {
@@ -102,12 +99,11 @@ for (let i = 0; i <= controls.length; i++) {
             : '';
         }
     })
-
+    
     controls[i].children[1].addEventListener('change', (e) => {
         if(items[i].count <= e.target.value) {
             controls[i].children[1].value = items[i].count;
         }
-
         if(e.target.value < 1) {
             controls[i].children[1].value = 1
         }
