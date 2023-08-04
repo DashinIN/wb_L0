@@ -44,6 +44,7 @@
         </div>
     </header>
     <main>
+        <div class="left__side">
         <div class="bucket">
             <div class="bucket__title">
                 Корзина
@@ -71,7 +72,7 @@
                         </div>
                         <div class="bucket__item-text">
                             <div class="bucket__item-infoprice">
-                                <p class="total">522 <span>сом</span></p>
+                                <p class="total-price">522 <span>сом</span></p>
                                 <p class="crossed">1051 <span>сом</span></p>
                             </div>
                             <div class="bucket__item-title">
@@ -117,7 +118,7 @@
                             </div>
                         </div>
                         <div class="bucket__item-price">
-                            <p class="total">522 <span>сом</span></p>
+                            <p class="total-price">522 <span>сом</span></p>
                             <p class="crossed">1051 <span>сом</span></p>
                         </div>
                     </div>
@@ -135,7 +136,7 @@
                         </div>
                         <div class="bucket__item-text">
                             <div class="bucket__item-infoprice">
-                                <p class="total">2 100 047 <span>сом</span></p>
+                                <p class="total-price">2 100 047 <span>сом</span></p>
                                 <p class="crossed">2 30 047 <span>сом</span></p>
                             </div>
                             <div class="bucket__item-title">
@@ -178,7 +179,7 @@
                             </div>
                         </div>
                         <div class="bucket__item-price">
-                            <p class="total">2 100 047 <span>сом</span></p>
+                            <p class="total-price">2 100 047 <span>сом</span></p>
                             <p class="crossed">2 30 047 <span>сом</span></p>
                         </div>
                     </div>
@@ -198,7 +199,7 @@
                         </div>
                         <div class="bucket__item-text">
                             <div class="bucket__item-infoprice">
-                                <p class="total">494 <span>сом</span></p>
+                                <p class="total-price">494 <span>сом</span></p>
                                 <p class="crossed">950 <span>сом</span></p>
                             </div>
                             <div class="bucket__item-title">
@@ -240,7 +241,7 @@
                             </div>
                         </div>
                         <div class="bucket__item-price">
-                            <p class="total">522 <span>сом</span></p>
+                            <p class="total-price">522 <span>сом</span></p>
                             <p class="crossed">1051 <span>сом</span></p>
                         </div>
                     </div>
@@ -504,8 +505,47 @@
                 </div>
             </form>
         </div>
-
-
+    </div>
+        <div class="total">
+            <div class="total__count">
+                <div class="total__sum">
+                    <p>Итого</p>
+                    <div class="total__sum-field">2 101 063 сом</div>
+                </div>
+                <div class="total__items">
+                    <p>203 товара</p>
+                    <div class="total__items-field">2 101 063 сом</div>
+                </div>
+                <div class="total__discount">
+                    <p>Скидка</p>
+                    <div class="total__discount-field">–200 985 сом</div>
+                </div>
+                <div class="total__delivery">
+                    <p>Доставка</p>
+                    <div class="total__delivery-field">Бесплатно</div>
+                </div>
+            </div>
+            <div class="total__info">
+                <img src="./assets/returnIcon.svg" alt="info">
+                <p>Обратная доставка товаров на склад при отказе — <span>бесплатно</span></p>
+            </div>
+            <div class="total__payment">
+                <div class="total__payment-check">
+                    <input type="checkbox"  id="check__payment" name="check__payment">
+                    <label for="check__payment"></label>
+                    <p>Списать оплату сразу</p>
+                </div>
+                <p class="total__payment-info">Спишем оплату с карты при получении</p>
+            </div>
+            <button class="total__paybutton">Заказать</button>
+            <div class="total__agree">
+                <img src="./assets/agreeIcon.svg" alt="agree">
+                <p>Соглашаюсь с правилами пользования торговой площадкой и возврата</p>
+            </div>
+        </div>
     </main>
+    <footer>
+        <p>© 2022  ООО «Товары и точка»</p>
+    </footer>
 </body>
 </html>
