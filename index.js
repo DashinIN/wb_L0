@@ -50,15 +50,15 @@ const items = [
     }
 ]
 
-const priceFields = document.querySelectorAll('.bucket__item-infoprice .total-price');
-const desktopPriceFields = document.querySelectorAll('.bucket__item-price .total-price');
+const priceFields = document.querySelectorAll('.bucket__item-infoprice .total-price span');
+const desktopPriceFields = document.querySelectorAll('.bucket__item-price .total-price span');
 const controls = document.querySelectorAll('.bucket__item-counter')
 const minusButtons = document.querySelectorAll('.bucket__item-counter>button:nth-child(1)')
 const plusButtons = document.querySelectorAll('.bucket__item-counter>input+button')
 const leftFields = document.querySelectorAll('.bucket__item-remain')
 
-const totalField = document.querySelector('.total__sum-field')
-const totalField2 = document.querySelector('.total__items-field')
+const totalField = document.querySelector('.total__sum-field span')
+const totalField2 = document.querySelector('.total__items-field span')
 const totalItemsField = document.querySelector('.total__items p')
 
 const deleteButtons = document.querySelectorAll('.bucket__item-icons>button:nth-child(2)');
@@ -67,31 +67,30 @@ const bucketItems = document.querySelectorAll('.bucket__item');
 const itemCheckboxes = document.querySelectorAll("input[name=check__item]");
 const itemAllCheckbox = document.querySelector("input[name=bucket_all]");
 
-
 let amount = [];
 let countItems = [];
 let checkItems = items.length;
 let deletedItems = 0;
 
-for (let i = 0; i < bucketItems.length; i++) {
+for (let i = 0; i < deleteButtons.length; i++) {
     deleteButtons[i].addEventListener('click', () => {
+        deletedItems++;
+        if(itemCheckboxes[i].checked) {
+            checkItems--;
+        }
+
         bucketItems[i].remove();
         amount[i]=0;
+        countItems[i]=0;
         controls[i].children[1].value = 0;
-        if(itemCheckboxes[i].checked) {
-        checkItems--;
-        }
-        deletedItems++;
-
-        console.log(bucketItems.length)
-        console.log(checkItems)
-
+        
         if(checkItems === bucketItems.length - deletedItems) {
             itemAllCheckbox.checked = true;
-           }
+        }
+
         let totalAmount = amount.reduce((a,b)=>a+b,0);
-        totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
-        countItems[i]=0;
+        totalField2.textContent = totalField.textContent = totalAmount;
+
         let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
         totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
     })
@@ -101,77 +100,68 @@ for (let i = 0; i < controls.length; i++) {
     amount[i]=controls[i].children[1].value * items[i].cost;
     countItems[i]=controls[i].children[1].value;
 
-    desktopPriceFields[i].textContent = priceFields[i].textContent =
-    `${amount[i]} сом`;
+    desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
 
     controls[i].addEventListener('click', (e) => {
         if(e.target === controls[i].children[0]) {
+            controls[i].children[1].value--;
+
             if(controls[i].children[1].value <= 1) {
                 return
             }
-            controls[i].children[1].value--;
             if(controls[i].children[1].value == 1) {
                 minusButtons[i].classList.add('gray')
             }
-            if(items[i].count > controls[i].children[1].value) {
-                if(plusButtons[i].classList.contains('gray')) {
-                 plusButtons[i].classList.remove('gray')
-                }
+            if(items[i].count > controls[i].children[1].value && plusButtons[i].classList.contains('gray')) {
+                 plusButtons[i].classList.remove('gray') 
             }
-            amount[i] = controls[i].children[1].value * items[i].cost;
-
             if(itemCheckboxes[i].checked === true) {
                 let totalAmount = amount.reduce((a,b)=>a+b,0);
-                totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+                totalField2.textContent = totalField.textContent = totalAmount;
+
                 countItems[i]=controls[i].children[1].value;
                 let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
                 totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
             }
-            desktopPriceFields[i].textContent = priceFields[i].textContent = 
-            `${amount[i]} сом`;
 
-            leftFields[i].textContent = 
-            items[i].count - controls[i].children[1].value != 0 && 
-            items[i].count - controls[i].children[1].value <= 5 ?
-            `Осталось ${items[i].count - controls[i].children[1].value} шт.`
-            : '';
+            amount[i] = controls[i].children[1].value * items[i].cost;
+            desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
+
+            let left = items[i].count - controls[i].children[1].value
+            leftFields[i].textContent = (left != 0 && left <= 5) ?
+            `Осталось ${left} шт.` : '';
         }
         if(e.target === controls[i].children[2]) {
+            controls[i].children[1].value++
+
             if(items[i].count <= controls[i].children[1].value) {
                 return
             }
-            controls[i].children[1].value++
             if(items[i].count == controls[i].children[1].value) {
                 plusButtons[i].classList.add('gray')
             }
-            if(controls[i].children[1].value == 2) {
-                if(minusButtons[i].classList.contains('gray')) {
+            if(controls[i].children[1].value == 2 && minusButtons[i].classList.contains('gray')) {
                 minusButtons[i].classList.remove('gray')
-                }
             }
-
-            amount[i] = controls[i].children[1].value * items[i].cost;
             if(itemCheckboxes[i].checked === true) {
                 let totalAmount = amount.reduce((a,b)=>a+b,0);
-                totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+                totalField2.textContent = totalField.textContent = totalAmount;
+                
                 countItems[i]=controls[i].children[1].value;
                 let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
                 totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
             }
 
-            desktopPriceFields[i].textContent = priceFields[i].textContent = 
-            `${amount[i]} сом`;
+            amount[i] = controls[i].children[1].value * items[i].cost;
+            desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
 
-            leftFields[i].textContent = 
-            items[i].count - controls[i].children[1].value != 0 && 
-            items[i].count - controls[i].children[1].value <= 5 ?
-            `Осталось ${items[i].count - controls[i].children[1].value} шт.`
-            : '';
+            let left = items[i].count - controls[i].children[1].value
+            leftFields[i].textContent = (left != 0 && left <= 5) ?
+            `Осталось ${left} шт.` : '';
         }
     })
     
     controls[i].children[1].addEventListener('change', (e) => {
-        console.log('change')
         if(items[i].count <= e.target.value) {
             controls[i].children[1].value = items[i].count;
         }
@@ -185,23 +175,21 @@ for (let i = 0; i < controls.length; i++) {
         if(controls[i].children[1].value == 1) {
             minusButtons[i].classList.add('gray')
         } 
-
-        amount[i]=controls[i].children[1].value * items[i].cost;
         if(itemCheckboxes[i].checked === true) {
             let totalAmount = amount.reduce((a,b)=>a+b,0);
-            totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+            totalField2.textContent = totalField.textContent = totalAmount;
+
             countItems[i]=controls[i].children[1].value;
             let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
             totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
         }
 
-        desktopPriceFields[i].textContent = priceFields[i].textContent = 
-        `${amount[i]} сом`;
-        leftFields[i].textContent = 
-        items[i].count - controls[i].children[1].value != 0 && 
-        items[i].count - controls[i].children[1].value < 5 ?
-        `Осталось ${items[i].count - controls[i].children[1].value} шт.`
-        : '';
+        amount[i]=controls[i].children[1].value * items[i].cost;
+        desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
+
+        let left = items[i].count - controls[i].children[1].value;
+        leftFields[i].textContent = (left != 0 && left <= 5) ?
+        `Осталось ${left} шт.` : '';
     })
     
 }
@@ -209,28 +197,34 @@ let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
 totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
 
 let totalAmount = amount.reduce((a,b)=>a+b,0);
-totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+totalField2.textContent = totalField.textContent = totalAmount;
 
 itemAllCheckbox.addEventListener('change', function() {
     if (this.checked) {
         checkItems = bucketItems.length;
-        itemCheckboxes.forEach((item) =>  item.checked = true )
+        itemCheckboxes.forEach((item) =>  item.checked = true );
+
         for (let i = 0; i < itemCheckboxes.length; i++) {
             amount[i] = controls[i].children[1].value * items[i].cost;
-            let totalAmount = amount.reduce((a,b)=>a+b,0);
-            totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
             countItems[i]=controls[i].children[1].value;
+
+            let totalAmount = amount.reduce((a,b)=>a+b,0);
+            totalField2.textContent = totalField.textContent = totalAmount;
+            
             let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
             totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
         }
     } else {
         checkItems = 0;
-        itemCheckboxes.forEach((item) => item.checked = false)
+        itemCheckboxes.forEach((item) => item.checked = false);
+
         for (let i = 0; i < itemCheckboxes.length; i++) {
             amount[i]=0;
-            let totalAmount = amount.reduce((a,b)=>a+b,0);
-            totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
             countItems[i]=0;
+
+            let totalAmount = amount.reduce((a,b)=>a+b,0);
+            totalField2.textContent = totalField.textContent = totalAmount;
+            
             let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
             totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
         }
@@ -241,24 +235,47 @@ for (let i = 0; i < itemCheckboxes.length; i++) {
     itemCheckboxes[i].addEventListener('change', function() {
     if (this.checked) {
         checkItems++;
+
         if(checkItems === bucketItems.length) {
          itemAllCheckbox.checked = true;
         }
+
         amount[i] = controls[i].children[1].value * items[i].cost;
-        let totalAmount = amount.reduce((a,b)=>a+b,0);
-        totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
         countItems[i]=controls[i].children[1].value;
+
+        let totalAmount = amount.reduce((a,b)=>a+b,0);
+        totalField2.textContent = totalField.textContent = totalAmount;
+        
         let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
         totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
     } else {
-        itemAllCheckbox.checked = false;
         checkItems--;
+        itemAllCheckbox.checked = false;
+
         amount[i]=0;
-        let totalAmount = amount.reduce((a,b)=>a+b,0);
-        totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
         countItems[i]=0;
+
+        let totalAmount = amount.reduce((a,b)=>a+b,0);
+        totalField2.textContent = totalField.textContent = totalAmount;
+    
         let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
         totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
     }
     });
+}
+
+const deleteMissingButtons = document.querySelectorAll('.missing__item-icons>button:nth-child(2)');
+const missingItems = document.querySelectorAll('.missing__item');
+const missingField = document.querySelector('.missing__menu-check p');
+
+let deletedMissingItems = 0;
+
+for (let i = 0; i < deleteMissingButtons.length; i++) {
+    deleteMissingButtons[i].addEventListener('click', () => {
+        missingItems[i].remove();
+        deletedMissingItems++;
+        let left = missingItems.length-deletedMissingItems
+        missingField.textContent =
+         `Отсутствуют · ${left} ${itemDecl(left)}`;
+    })
 }
