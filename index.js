@@ -67,14 +67,28 @@ const bucketItems = document.querySelectorAll('.bucket__item');
 const itemCheckboxes = document.querySelectorAll("input[name=check__item]");
 const itemAllCheckbox = document.querySelector("input[name=bucket_all]");
 
+
 let amount = [];
 let countItems = [];
 let checkItems = items.length;
+let deletedItems = 0;
 
-for (let i = 0; i < deleteButtons.length; i++) {
+for (let i = 0; i < bucketItems.length; i++) {
     deleteButtons[i].addEventListener('click', () => {
         bucketItems[i].remove();
         amount[i]=0;
+        controls[i].children[1].value = 0;
+        if(itemCheckboxes[i].checked) {
+        checkItems--;
+        }
+        deletedItems++;
+
+        console.log(bucketItems.length)
+        console.log(checkItems)
+
+        if(checkItems === bucketItems.length - deletedItems) {
+            itemAllCheckbox.checked = true;
+           }
         let totalAmount = amount.reduce((a,b)=>a+b,0);
         totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
         countItems[i]=0;
@@ -199,7 +213,7 @@ totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
 
 itemAllCheckbox.addEventListener('change', function() {
     if (this.checked) {
-        checkItems = items.length;
+        checkItems = bucketItems.length;
         itemCheckboxes.forEach((item) =>  item.checked = true )
         for (let i = 0; i < itemCheckboxes.length; i++) {
             amount[i] = controls[i].children[1].value * items[i].cost;
@@ -227,7 +241,7 @@ for (let i = 0; i < itemCheckboxes.length; i++) {
     itemCheckboxes[i].addEventListener('change', function() {
     if (this.checked) {
         checkItems++;
-        if(checkItems === items.length) {
+        if(checkItems === bucketItems.length) {
          itemAllCheckbox.checked = true;
         }
         amount[i] = controls[i].children[1].value * items[i].cost;
