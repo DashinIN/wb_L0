@@ -791,10 +791,6 @@ main {
     margin-top: 16px;
 }
 
-.bucket__menu button {
-    transition: transform .3s ease;
-}
-
 .missing__menu-check {
     display: flex;
 }
@@ -808,6 +804,7 @@ main {
 
 .missing__menu button {
     margin-right: 5px;
+    transition: transform .3s ease;
 }
 
 .missing__item {

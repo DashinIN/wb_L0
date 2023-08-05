@@ -1,5 +1,15 @@
 
 
+const itemDecl = n => {  
+    n = Math.abs(n) % 100; 
+    let n1 = n % 10;
+    if (n > 4 && n < 21) { return 'товаров'; }
+    if (n1 > 1 && n1 < 5) { return 'товара'; }
+    if (n1 == 1) { return 'товар'; }
+    return 'товаров';
+}
+
+
 const bucketHideButton = document.querySelector('.bucket__menu button');
 const bucketRow = document.querySelector('.bucket__row');
 
@@ -47,11 +57,37 @@ const minusButtons = document.querySelectorAll('.bucket__item-counter>button:nth
 const plusButtons = document.querySelectorAll('.bucket__item-counter>input+button')
 const leftFields = document.querySelectorAll('.bucket__item-remain')
 
+const totalField = document.querySelector('.total__sum-field')
+const totalField2 = document.querySelector('.total__items-field')
+const totalItemsField = document.querySelector('.total__items p')
 
-for (let i = 0; i <= controls.length; i++) {
+
+const deleteButtons = document.querySelectorAll('.bucket__item-icons>button:nth-child(2)');
+const bucketItems = document.querySelectorAll('.bucket__item');
+
+let amount = [];
+let countItems = [];
+
+for (let i = 0; i < deleteButtons.length; i++) {
+    deleteButtons[i].addEventListener('click', () => {
+        bucketItems[i].remove();
+        amount[i]=0;
+        let totalAmount = amount.reduce((a,b)=>a+b,0);
+        totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+        countItems[i]=0;
+        let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+        totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+    })
+}
+
+for (let i = 0; i < controls.length; i++) {
+
+    amount[i]=controls[i].children[1].value * items[i].cost;
+    countItems[i]=controls[i].children[1].value;
 
     desktopPriceFields[i].textContent = priceFields[i].textContent =
-    `${controls[i].children[1].value * items[i].cost} сом`;
+    `${amount[i]} сом`;
+
 
     controls[i].addEventListener('click', (e) => {
         if(e.target === controls[i].children[0]) {
@@ -67,8 +103,15 @@ for (let i = 0; i <= controls.length; i++) {
                  plusButtons[i].classList.remove('gray')
                 }
             }
+            amount[i] = controls[i].children[1].value * items[i].cost;
+            let totalAmount = amount.reduce((a,b)=>a+b,0);
+            totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+            countItems[i]=controls[i].children[1].value;
+            let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+            totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+
             desktopPriceFields[i].textContent = priceFields[i].textContent = 
-            `${controls[i].children[1].value * items[i].cost} сом`;
+            `${amount[i]} сом`;
 
             leftFields[i].textContent = 
             items[i].count - controls[i].children[1].value != 0 && 
@@ -89,8 +132,16 @@ for (let i = 0; i <= controls.length; i++) {
                 minusButtons[i].classList.remove('gray')
                 }
             }
+
+            amount[i] = controls[i].children[1].value * items[i].cost;
+            let totalAmount = amount.reduce((a,b)=>a+b,0);
+            totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+            countItems[i]=controls[i].children[1].value;
+            let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+            totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+
             desktopPriceFields[i].textContent = priceFields[i].textContent = 
-            `${controls[i].children[1].value * items[i].cost} сом`;
+            `${amount[i]} сом`;
 
             leftFields[i].textContent = 
             items[i].count - controls[i].children[1].value != 0 && 
@@ -101,6 +152,7 @@ for (let i = 0; i <= controls.length; i++) {
     })
     
     controls[i].children[1].addEventListener('change', (e) => {
+        console.log('change')
         if(items[i].count <= e.target.value) {
             controls[i].children[1].value = items[i].count;
         }
@@ -114,9 +166,16 @@ for (let i = 0; i <= controls.length; i++) {
         if(controls[i].children[1].value == 1) {
             minusButtons[i].classList.add('gray')
         } 
+
+        amount[i]=controls[i].children[1].value * items[i].cost;
+        let totalAmount = amount.reduce((a,b)=>a+b,0);
+        totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+        countItems[i]=controls[i].children[1].value;
+        let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+        totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+
         desktopPriceFields[i].textContent = priceFields[i].textContent = 
-        `${controls[i].children[1].value * items[i].cost} сом`;
-        
+        `${amount[i]} сом`;
         leftFields[i].textContent = 
         items[i].count - controls[i].children[1].value != 0 && 
         items[i].count - controls[i].children[1].value < 5 ?
@@ -125,5 +184,27 @@ for (let i = 0; i <= controls.length; i++) {
     })
     
 }
+let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+
+let totalAmount = amount.reduce((a,b)=>a+b,0);
+totalField2.textContent = totalField.textContent = `${totalAmount} сом`;
+
+// const itemCheckboxes = document.querySelectorAll("input[name=check__item]");
+// console.log(itemCheckboxes[0]);
+
+// let price = [];
 
 
+// for (let i = 0; i < controls.length; i++) {
+//     itemCheckboxes[i].addEventListener('change', function() {
+//     if (this.checked) {
+//         price[i]=amount[i]
+//     } else {
+//         price[i]=0
+//     }
+//     console.log(price.reduce((a,b)=>a+b,0))
+//     console.log(price)
+//     console.log(amount)
+//     });
+// }
