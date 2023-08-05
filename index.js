@@ -78,6 +78,124 @@ let countItems = [];
 let checkItems = items.length;
 let deletedItems = 0;
 
+for (let i = 0; i < controls.length; i++) {
+    amount[i]=controls[i].children[1].value * items[i].cost;
+    countItems[i]=controls[i].children[1].value;
+
+    leftFields[i].textContent = '';
+    desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
+    desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
+
+    controls[i].addEventListener('click', (e) => {
+        if(e.target === controls[i].children[0]) {
+            if(controls[i].children[1].value <= 1) {
+                return
+            }
+            controls[i].children[1].value--;
+
+            if(controls[i].children[1].value == 1) {
+                minusButtons[i].classList.add('gray')
+            }
+            if(items[i].count > controls[i].children[1].value && plusButtons[i].classList.contains('gray')) {
+                 plusButtons[i].classList.remove('gray') 
+            }
+
+            amount[i] = controls[i].children[1].value * items[i].cost;
+            if(itemCheckboxes[i].checked === true) {
+                let totalAmount = amount.reduce((a,b)=>a+b,0);
+                totalField.textContent = totalAmount;
+                totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
+                totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
+
+                countItems[i]=controls[i].children[1].value;
+                let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+                totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+            }
+
+            desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
+            desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
+
+            let left = items[i].count - controls[i].children[1].value
+            leftFields[i].textContent = (left != 0 && left <= 5) ?
+            `Осталось ${left} шт.` : '';
+        }
+        if(e.target === controls[i].children[2]) {
+            if(items[i].count <= controls[i].children[1].value) {
+                return
+            }
+            controls[i].children[1].value++;
+
+            if(items[i].count == controls[i].children[1].value) {
+                plusButtons[i].classList.add('gray')
+            }
+            if(controls[i].children[1].value == 2 && minusButtons[i].classList.contains('gray')) {
+                minusButtons[i].classList.remove('gray')
+            }
+            amount[i] = controls[i].children[1].value * items[i].cost;
+            if(itemCheckboxes[i].checked === true) {
+                let totalAmount = amount.reduce((a,b)=>a+b,0);
+                totalField.textContent = totalAmount
+                totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
+                totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
+
+                countItems[i]=controls[i].children[1].value;
+                let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+                totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+            }
+
+            desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
+            desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
+
+            let left = items[i].count - controls[i].children[1].value
+            leftFields[i].textContent = (left != 0 && left <= 5) ?
+            `Осталось ${left} шт.` : '';
+        }
+    })
+    
+    controls[i].children[1].addEventListener('change', (e) => {
+        if(items[i].count <= e.target.value) {
+            controls[i].children[1].value = items[i].count;
+        }
+        if(e.target.value < 1) {
+            controls[i].children[1].value = 1
+        }
+        if(minusButtons[i].classList.contains('gray')) {
+            minusButtons[i].classList.remove('gray')
+        }
+        controls[i].children[1].value = e.target.value;
+        if(controls[i].children[1].value == 1) {
+            minusButtons[i].classList.add('gray')
+        } 
+
+        amount[i]=controls[i].children[1].value * items[i].cost;
+        if(itemCheckboxes[i].checked === true) {
+            let totalAmount = amount.reduce((a,b)=>a+b,0);
+            totalField.textContent = totalAmount
+            totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
+            totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
+
+            countItems[i]=controls[i].children[1].value;
+            let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+            totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+        }
+
+        desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
+        desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
+
+        let left = items[i].count - controls[i].children[1].value;
+        leftFields[i].textContent = (left != 0 && left <= 5) ?
+        `Осталось ${left} шт.` : '';
+    })
+    
+}
+let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
+totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
+
+let totalAmount = amount.reduce((a,b)=>a+b,0);
+totalField.textContent = totalAmount;
+totalField2.textContent = Math.floor(totalAmount*saleIncrement);
+totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
+
 for (let i = 0; i < deleteButtons.length; i++) {
     deleteButtons[i].addEventListener('click', () => {
         deletedItems++;
@@ -104,122 +222,6 @@ for (let i = 0; i < deleteButtons.length; i++) {
     })
 }
 
-for (let i = 0; i < controls.length; i++) {
-    amount[i]=controls[i].children[1].value * items[i].cost;
-    countItems[i]=controls[i].children[1].value;
-
-    leftFields[i].textContent = '';
-    desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
-    desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
-
-    controls[i].addEventListener('click', (e) => {
-        if(e.target === controls[i].children[0]) {
-            if(controls[i].children[1].value <= 1) {
-                return
-            }
-            controls[i].children[1].value--;
-
-            if(controls[i].children[1].value == 1) {
-                minusButtons[i].classList.add('gray')
-            }
-            if(items[i].count > controls[i].children[1].value && plusButtons[i].classList.contains('gray')) {
-                 plusButtons[i].classList.remove('gray') 
-            }
-            if(itemCheckboxes[i].checked === true) {
-                let totalAmount = amount.reduce((a,b)=>a+b,0);
-                totalField.textContent = totalAmount
-                totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
-                totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
-
-                countItems[i]=controls[i].children[1].value;
-                let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
-                totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
-            }
-
-            amount[i] = controls[i].children[1].value * items[i].cost;
-            desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
-            desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
-
-            let left = items[i].count - controls[i].children[1].value
-            leftFields[i].textContent = (left != 0 && left <= 5) ?
-            `Осталось ${left} шт.` : '';
-        }
-        if(e.target === controls[i].children[2]) {
-            if(items[i].count <= controls[i].children[1].value) {
-                return
-            }
-            controls[i].children[1].value++;
-
-            if(items[i].count == controls[i].children[1].value) {
-                plusButtons[i].classList.add('gray')
-            }
-            if(controls[i].children[1].value == 2 && minusButtons[i].classList.contains('gray')) {
-                minusButtons[i].classList.remove('gray')
-            }
-            if(itemCheckboxes[i].checked === true) {
-                let totalAmount = amount.reduce((a,b)=>a+b,0);
-                totalField.textContent = totalAmount
-                totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
-                totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
-
-                countItems[i]=controls[i].children[1].value;
-                let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
-                totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
-            }
-
-            amount[i] = controls[i].children[1].value * items[i].cost;
-            desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
-            desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
-
-            let left = items[i].count - controls[i].children[1].value
-            leftFields[i].textContent = (left != 0 && left <= 5) ?
-            `Осталось ${left} шт.` : '';
-        }
-    })
-    
-    controls[i].children[1].addEventListener('change', (e) => {
-        if(items[i].count <= e.target.value) {
-            controls[i].children[1].value = items[i].count;
-        }
-        if(e.target.value < 1) {
-            controls[i].children[1].value = 1
-        }
-        if(minusButtons[i].classList.contains('gray')) {
-            minusButtons[i].classList.remove('gray')
-        }
-        controls[i].children[1].value = e.target.value;
-        if(controls[i].children[1].value == 1) {
-            minusButtons[i].classList.add('gray')
-        } 
-        if(itemCheckboxes[i].checked === true) {
-            let totalAmount = amount.reduce((a,b)=>a+b,0);
-            totalField.textContent = totalAmount
-            totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
-            totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
-
-            countItems[i]=controls[i].children[1].value;
-            let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
-            totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
-        }
-
-        amount[i]=controls[i].children[1].value * items[i].cost;
-        desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
-        desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
-
-        let left = items[i].count - controls[i].children[1].value;
-        leftFields[i].textContent = (left != 0 && left <= 5) ?
-        `Осталось ${left} шт.` : '';
-    })
-    
-}
-let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
-totalItemsField.textContent = `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
-
-let totalAmount = amount.reduce((a,b)=>a+b,0);
-totalField.textContent = totalAmount;
-totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
-totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
-
 itemAllCheckbox.addEventListener('change', function() {
     if (this.checked) {
         checkItems = bucketItems.length;
@@ -230,8 +232,8 @@ itemAllCheckbox.addEventListener('change', function() {
             countItems[i]=controls[i].children[1].value;
 
             let totalAmount = amount.reduce((a,b)=>a+b,0);
-            totalField.textContent = totalAmount
-            totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
+            totalField.textContent = totalAmount;
+            totalField2.textContent = Math.floor(totalAmount*saleIncrement);
             totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
 
             let totalItemsCount = countItems.reduce((a,b) => Number(a)+Number(b), 0)
