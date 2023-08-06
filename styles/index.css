@@ -1527,7 +1527,9 @@ main {
         flex-grow: 1;
     }
     .total {
-        align-self: start;
+        position: sticky;
+        align-self: flex-start;
+        top: 18px;
         min-width: 303px;
         max-width: 429px;
         margin-top: 4px;
