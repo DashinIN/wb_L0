@@ -13,17 +13,20 @@ const itemDecl = n => {
 const items = [
      {
         cost: 150,
-        count: 10
+        count: 10,
+        late: 4,
     },
 
  {
         cost: 300,
-        count: 5
+        count: 5,
+        late: 2,
     },
 
      {
         cost: 350,
-        count: 15
+        count: 15,
+        late: 5,
     }
 ]
 
@@ -57,6 +60,44 @@ const paymentButton = document.querySelector(".total__paybutton");
 const bucketMenuHiddenCountField = document.querySelector('.bucket__menu-hidden .count');
 const bucketMenuHiddenAmountField = document.querySelector('.bucket__menu-hidden .amount');
 
+const deliveryItemsFirst = document.querySelectorAll(".delivery__items.first .delivery__item");
+const deliveryItemsSecond = document.querySelectorAll(".delivery__items.second .delivery__item");
+const deliveryDateSecond = document.querySelector(".delivery__date:nth-child(2)");
+
+
+const updateDeliveryItemBlock = (index) => {
+    const isInFirstOrder = countItems[index] < items[index].count - items[index].late;
+    const itemField = isInFirstOrder ? deliveryItemsFirst : deliveryItemsSecond;
+    let secondOrderCount = countItems[index] - (items[index].count - items[index].late) + 1;
+    
+    itemField[index].replaceChildren();
+
+    const labelCount = isInFirstOrder ?
+        countItems[index]  : secondOrderCount;
+    
+    if(labelCount > 0) {
+        let wrapper = document.createElement("div");
+        wrapper.className = 'image__wrapper';
+        wrapper.innerHTML =  `<img src="./assets/bucket-item${index+1}.png" alt="item${index+1}">`;
+        let label = document.createElement("div")
+        
+        const labelCount = isInFirstOrder ?
+        countItems[index]  : secondOrderCount;
+
+        label.textContent = labelCount
+        label.className = (labelCount> 1) ?
+        'delivery__label ' : 'delivery__label hidden';
+        wrapper.append(label);
+        itemField[index].appendChild(wrapper)
+    } 
+    if (secondOrderCount < 1) {
+        deliveryItemsSecond[index].replaceChildren();
+        deliveryDateSecond.classList.add('hidden');
+    } else {
+        deliveryDateSecond.classList.remove('hidden');
+    }
+}
+
 
 let amount = [];
 let countItems = [];
@@ -87,11 +128,10 @@ const updateTotalItemsFields = (countItems) => {
     
 }
 
-
-
 for (let i = 0; i < controls.length; i++) {
     amount[i]=controls[i].children[1].value * items[i].cost;
     countItems[i]=controls[i].children[1].value;
+    updateDeliveryItemBlock(i);
     
     leftFields[i].textContent = '';
     desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
@@ -115,6 +155,7 @@ for (let i = 0; i < controls.length; i++) {
             if(itemCheckboxes[i].checked === true) {
                 updateTotalPriceFields(amount);
                 countItems[i]=controls[i].children[1].value;
+                updateDeliveryItemBlock(i);
                 updateTotalItemsFields(countItems)
             }
 
@@ -141,6 +182,7 @@ for (let i = 0; i < controls.length; i++) {
             if(itemCheckboxes[i].checked === true) {
                 updateTotalPriceFields(amount);
                 countItems[i]=controls[i].children[1].value;
+                updateDeliveryItemBlock(i);
                 updateTotalItemsFields(countItems)
             }
 
@@ -172,6 +214,7 @@ for (let i = 0; i < controls.length; i++) {
         if(itemCheckboxes[i].checked === true) {
             updateTotalPriceFields(amount);
             countItems[i]=controls[i].children[1].value;
+            updateDeliveryItemBlock(i);
             updateTotalItemsFields(countItems)
         }
 
@@ -203,6 +246,7 @@ for (let i = 0; i < deleteButtons.length; i++) {
         if(checkItems === bucketItems.length - deletedItems) {
             itemAllCheckbox.checked = true;
         }
+        updateDeliveryItemBlock(i);
         updateTotalPriceFields(amount);
         updateTotalItemsFields(countItems)
     })
@@ -215,6 +259,7 @@ itemAllCheckbox.addEventListener('change', function() {
         for (let i = 0; i < itemCheckboxes.length; i++) {
             amount[i] = controls[i].children[1].value * items[i].cost;
             countItems[i]=controls[i].children[1].value;
+            updateDeliveryItemBlock(i);
             updateTotalPriceFields(amount);
             updateTotalItemsFields(countItems)
         }
@@ -224,6 +269,7 @@ itemAllCheckbox.addEventListener('change', function() {
         for (let i = 0; i < itemCheckboxes.length; i++) {
             amount[i]=0;
             countItems[i]=0;
+            updateDeliveryItemBlock(i);
             updateTotalPriceFields(amount);
             updateTotalItemsFields(countItems)
         }
@@ -239,6 +285,7 @@ for (let i = 0; i < itemCheckboxes.length; i++) {
         }
         amount[i] = controls[i].children[1].value * items[i].cost;
         countItems[i]=controls[i].children[1].value;
+        updateDeliveryItemBlock(i);
         updateTotalPriceFields(amount);
         updateTotalItemsFields(countItems)
     } else {
@@ -246,6 +293,7 @@ for (let i = 0; i < itemCheckboxes.length; i++) {
         itemAllCheckbox.checked = false;
         amount[i]=0;
         countItems[i]=0;
+        updateDeliveryItemBlock(i);
         updateTotalPriceFields(amount);
         updateTotalItemsFields(countItems);
     }
@@ -314,3 +362,6 @@ const toggleMissingRow = () => {
 }
 
 missingHideButton.addEventListener('click', () => toggleMissingRow());
+
+
+
