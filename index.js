@@ -363,5 +363,41 @@ const toggleMissingRow = () => {
 
 missingHideButton.addEventListener('click', () => toggleMissingRow());
 
+const deliveryModal = document.querySelector('.delivery__modal');
+const deliveryChangeButton = document.querySelector('.delivery__change');
+const deliveryModalCloseButton = document.querySelector('.delivery__modal .close');
 
+const paymentModal = document.querySelector('.payment__modal');
+const paymentChangeButton = document.querySelector('.payment-type__change');
+const paymentModalCloseButton = document.querySelector('.payment__modal .close');
+
+
+const main = document.querySelector('main');
+
+const openModal = (modal) => {
+    document.body.style.overflow = "hidden";
+    main.classList.add('opened');
+    modal.style.display = 'block';
+}
+
+const closeModal = (modal) => {
+    modal.style.display = "none";
+    main.classList.remove('opened');
+    document.body.style.overflow = "";
+}
+
+deliveryChangeButton.addEventListener('click', () => openModal(deliveryModal))
+deliveryModalCloseButton.addEventListener('click', () => closeModal(deliveryModal))
+paymentChangeButton.addEventListener('click', () => openModal(paymentModal))
+paymentModalCloseButton.addEventListener('click', () => closeModal(paymentModal))
+
+window.onclick = function(event) {
+    if (event.target == deliveryModal) {
+        closeModal(deliveryModal)
+    }
+    if (event.target == paymentModal) {
+        closeModal(paymentModal)
+    }
+  }
+ 
 
