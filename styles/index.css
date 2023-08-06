@@ -88,13 +88,7 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.hidden {
-   display: none;
-}
 
-.rotated {
-    transform: rotate(-180deg);
-}
 
 body {
     font-family: Segoe_UI;
@@ -431,6 +425,13 @@ main {
 
 .bucket__menu-check {
     display: flex;
+}
+
+.bucket__menu-hidden {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
 }
 
 .bucket__menu-check p{
@@ -941,6 +942,9 @@ main {
      
     .missing__menu {
         margin-top: 0;
+    }
+    .missing__menu button {
+        margin-right: 0;
     }
 
     .missing__item-text {
@@ -1569,3 +1573,13 @@ footer p {
     font-weight: 400;
     line-height: 16px; 
 }
+
+
+
+.hidden {
+    display: none;
+ }
+ 
+ .rotated {
+     transform: rotate(-180deg);
+ }
