@@ -593,8 +593,6 @@ main {
     padding: 0 5px 0 4px;
 }
 
-
-
 .bucket__item-counter button {
     user-select: none;
     display: flex;
@@ -676,6 +674,9 @@ main {
         align-items: center;
         margin-top: 28px;
     }   
+    .bucket__menu button {
+        margin-right: 0px;
+    }
 
     .image__wrapper {
         width: 72px;
@@ -685,6 +686,7 @@ main {
     .bucket__item-price {
         display: flex;
         flex-direction: column;
+        margin-top: 10px;
     }
 
     .total-price span{
@@ -701,6 +703,7 @@ main {
     .bucket__item {
         display: flex;
         justify-content: space-between;
+        margin-top: 14px;
     }
 
     .bucket__item-info {
@@ -754,17 +757,53 @@ main {
     .bucket__item-part {
         display: flex;
         justify-content: space-between;
-        width: 266px;
+        width: 226px;
+    }
+
+    .bucket__item-company {
+        margin-top: 2px;
+    }
+
+    .bucket__item-company img{
+        margin-left: 7px;
     }
 
     .bucket__item-control {
         display: block;
-        padding: 8px 0;
+        padding-top: 12px;
+    }
+
+    .bucket__item-counter {
+        width: 100px;
+        height: 44px;
+    }
+
+    .bucket__item-counter input{
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px; /* 150% */
+    }
+
+    .bucket__item-counter button{
+        padding: 5px 5px 8px 7px;
     }
 
     .bucket__item-remain, 
     .bucket__item-icons {
         margin-top: 8px;
+    }
+
+    .bucket__item-remain {
+        margin-left: 0;
+    }
+
+    .bucket__item-icons {
+        margin-left: 38px;
+    }
+
+    .bucket__item-icon{
+        padding: 0px 7px;
     }
 
     .line {
@@ -778,8 +817,11 @@ main {
     .bucket__item-price {
         display: flex;
         align-items: flex-end;
+        margin-top: 12px;
     }
-    
+    .bucket__item-price .crossed {
+        margin-top: 5px;
+    } 
 }
 
 .missing {
@@ -882,7 +924,7 @@ main {
 @media (min-width: 1024px) { 
 
     .missing {
-        margin: 32px 0;
+        margin: 37px 0 31px;
     }
 
     .missing__item {
@@ -893,7 +935,7 @@ main {
 
     .missing__item:nth-child(1) {
         display: flex;
-        margin-top: 14px;
+        margin-top: 16px;
         justify-content: space-between;
     }
      
@@ -912,7 +954,7 @@ main {
         line-height: 24px; 
     }
     .missing__item-part {
-        margin-right: 163px;
+        margin-right: 118px;
     }
     
 
@@ -937,6 +979,15 @@ main {
 
     .missing__item-image .image__wrapper img {
     margin-top: 2px;
+    }
+
+    .missing__item-icons {
+        margin-top: 14px;
+        margin-left: 0;
+        justify-content: flex-end;
+    }
+    .missing__item-icon {
+        padding: 0 8px;
     }
 }
 
@@ -963,7 +1014,7 @@ main {
     font-size: 16px;
     font-weight: 700;
     line-height: 24px; 
-    margin: 9px 2px 0px 16px;
+    margin: 2px 0px 0px 9px;
 }
 
 .delivery__info {
@@ -1076,6 +1127,10 @@ main {
         letter-spacing: -0.24px;
     }
 
+    .delivery__change {
+        margin: 9px 2px 0px 16px;
+    }
+
     .delivery__type {
         width: 153px;
     }
@@ -1116,7 +1171,7 @@ main {
 
     .delivery__return {
         padding: 0;
-        margin-top: 24px;
+        margin-top: 21px;
     }
 }
 
@@ -1144,7 +1199,7 @@ main {
     font-size: 16px;
     font-weight: 700;
     line-height: 24px; 
-    margin: 9px 2px 0px 16px;
+    margin: 2px 0px 0px 9px;
 }
 
 .payment-type__info {
@@ -1179,7 +1234,7 @@ main {
 @media (min-width: 1024px) {
 
     .payment-type {
-      
+        margin-top: 14px;
         padding: 18px 24px 26px;
     }
 
@@ -1192,6 +1247,9 @@ main {
         font-weight: 700;
         line-height: 32px; 
         letter-spacing: -0.24px;
+    }
+    .payment-type__change {
+        margin: 9px 2px 0px 16px;
     }
 
     .payment-type__info {
@@ -1271,6 +1329,7 @@ main {
     .receiver {
         padding-inline: 24px;
         padding-top: 18px;
+        margin-top: 14px;
     }
 
      .receiver__title {
@@ -1316,6 +1375,7 @@ main {
 .total {
     margin-top: 16px;
     padding: 8px 16px 0px;
+    
 }
 
 .total__sum, .total__items,
@@ -1466,8 +1526,8 @@ main {
         align-self: start;
         min-width: 303px;
         max-width: 429px;
-        margin-top: 0;
-        padding: 20px 24px 24px;
+        margin-top: 4px;
+        padding: 17px 24px 24px;
         border-radius: 16px;
         background: var(--system-white);
         box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.30), 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
