@@ -1788,8 +1788,11 @@ footer p {
         display: flex;
         flex-direction: column;
         gap: 16px;
+    }
+    .payment__form .form__row  {
         margin-bottom: 123px;
     }
+
 
     .payment__form {
         padding: 0 24px 16px;
@@ -1885,7 +1888,7 @@ footer p {
 
 
 .form__row.place .form_radio label:before {
-    top: 0;
+    top: 3px;
 }
 
 .form_radio label {
@@ -1896,8 +1899,13 @@ footer p {
 .delivery__place-delete  {
     display: flex;
     flex-direction: column;
-    
+    padding-top: 2px;
+    margin-left: 8px;
 
+}
+
+.delivery__form .form__row  {
+    margin-bottom: 49px;
 }
 
 .delivery__place-delete path{
@@ -1906,3 +1914,36 @@ footer p {
 .delivery__place-delete:hover path{
     fill: #F55123;
 }
+
+
+@media (min-width: 1024px) {
+    .delivery__modal {
+        justify-content: center;
+        align-items: center;
+    }
+    .delivery__modal .modal-content {
+        width: 500px;
+        height: auto;
+        
+        border-radius: 15px;
+      }
+
+      .opened {
+        padding-right: 41px;
+        
+     }
+
+     .delivery__form {
+        padding: 0px 24px 24px;
+     }
+   
+    .delivery__form .delivery__place{
+        margin-left: 0;
+    }
+    .delivery__form  .form_radio {
+        margin-bottom: 8px;
+    }
+
+
+    
+  }

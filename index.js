@@ -525,13 +525,13 @@ deliveryForm.addEventListener('submit', (e) => {
             
             switch (radio.value) {
                 case '4': 
-                createDeliveryPoint(radio.name, 'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 67/1'); 
+                createDeliveryPoint(radio.name, 'Бишкек, улица Табышалиева, 57'); 
                 break;
                 case '5': 
-                createDeliveryPoint(radio.name, 'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 1');
+                createDeliveryPoint(radio.name, 'Бишкек, улица Жукеева-Пудовкина, 77/1');
                 break;
                 case '6':
-                createDeliveryPoint(radio.name,'г. Бишкек, улица Табышалиева, д. 57');
+                createDeliveryPoint(radio.name,' Бишкек, микрорайон Джал, улица Ахунбаева Исы, 67/1');
                 break;
             
                 default: deliveryAdress.textContent = '';
