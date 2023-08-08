@@ -63,7 +63,7 @@ const bucketMenuHiddenAmountField = document.querySelector('.bucket__menu-hidden
 const deliveryItemsFirst = document.querySelectorAll(".delivery__items.first .delivery__item");
 const deliveryItemsSecond = document.querySelectorAll(".delivery__items.second .delivery__item");
 const deliveryDateSecond = document.querySelector(".delivery__date:nth-child(2)");
-
+const deliveryDateTotal = document.querySelector(".total__delivery-date");
 
 const updateDeliveryItemBlock = (index) => {
     const isInFirstOrder = countItems[index] < items[index].count - items[index].late;
@@ -71,6 +71,7 @@ const updateDeliveryItemBlock = (index) => {
     let secondOrderCount = countItems[index] - (items[index].count - items[index].late) + 1;
     
     itemField[index].replaceChildren();
+    deliveryDateTotal.replaceChildren();
 
     const labelCount = isInFirstOrder ?
         countItems[index]  : secondOrderCount;
@@ -93,8 +94,10 @@ const updateDeliveryItemBlock = (index) => {
     if (secondOrderCount < 1) {
         deliveryItemsSecond[index].replaceChildren();
         deliveryDateSecond.classList.add('hidden');
+        deliveryDateTotal.textContent = '5-6 фев'
     } else {
         deliveryDateSecond.classList.remove('hidden');
+        deliveryDateTotal.textContent = '5-8 фев'
     }
 }
 
@@ -376,12 +379,14 @@ const main = document.querySelector('main');
 
 const openModal = (modal) => {
     document.body.style.overflow = "hidden";
+    main.classList.add("opened");
     modal.style.display = 'flex';
 }
 
 const closeModal = (modal) => {
     modal.style.display = "none";
     document.body.style.overflow = "";
+    main.classList.remove("opened");
 }
 
 deliveryChangeButton.addEventListener('click', () => openModal(deliveryModal))
@@ -397,16 +402,23 @@ window.onclick = function(event) {
         closeModal(paymentModal)
     }
   }
- 
+  
+  const editPaymentTotalButton = document.querySelector('button.edit__payment');
+  const editDeliveryTotalButton = document.querySelector('button.edit__delivery');
+  editDeliveryTotalButton.addEventListener('click', () => openModal(deliveryModal));
+  editPaymentTotalButton.addEventListener('click', () => openModal(paymentModal));
 
 const paymentForm = document.querySelector('.payment__form');
 const paymentRadios = document.querySelectorAll('input[name="payment__radio"]')
 const paymentTypeField = document.querySelector('.payment-type .payment-type__info img');
+const paymentTypeTotalField = document.querySelector('.total__payment-field img');
+
 
 paymentForm.addEventListener('submit', (e) => {
     e.preventDefault();
     for (let radio of paymentRadios) {
     if (radio.checked) {
+        paymentTypeTotalField.src =  `./assets/${radio.value}.svg`;
         paymentTypeField.src =  `./assets/${radio.value}.svg`;
     }
     }
@@ -462,40 +474,45 @@ for (let i=0; i<courierRadios.length; i++) {
     })
 }
 
-const deliveryPlace = document.querySelector('.delivery .delivery__place');
-const deliveryAdress = document.querySelector('.delivery .delivery__adress');
+const deliveryTitle = document.querySelector('.total__delivery-title');
+const deliveryAdress = document.querySelector('.total__delivery-adress');
 
 const deliveryPoint = document.querySelector('.delivery .delivery__point');
 const deliveryForm = document.querySelector('.delivery__form');
 
-const createDeliveryPoint = (name, text) => {
-
-const textType = (name === "courier__radio") ? 'Курьером' : "Пункт выдачи"
-    deliveryPoint.replaceChildren();
-    deliveryPoint.innerHTML =  
-    `<div class="delivery__type">
-        ${textType}
-    </div>
-    <div class="delivery__place">
-        <div class="delivery__adress">
-            ${text}
+const updateDeliveryPoint = (name, text) => {
+    const textType = (name === "courier__radio") ? 'Курьером' : "Пункт выдачи"
+        deliveryPoint.replaceChildren();
+        deliveryTitle.replaceChildren();
+        deliveryAdress.replaceChildren();
+        deliveryTitle.textContent = (name === "courier__radio") ? 
+        'Доставка курьером' : "Доставка в пункт выдачи";
+        deliveryAdress.textContent = text;
+        deliveryPoint.innerHTML =  
+        `<div class="delivery__type">
+            ${textType}
         </div>
-        ${
-            (textType === 'Пункт выдачи') ?
-            `<div class="delivery__adress-info">
-                <img src="./assets/raitingIcon.svg" alt="raiting">
-                    <div class="raiting">
-                        4.99
-                    </div>
-                    <div class="time">
-                        Ежедневно с 10 до 21 
-                    </div>
-             </div>`
-             : ''
-            
-        }
-       
-    </div>`;
+        <div class="delivery__place">
+            <div class="delivery__adress">
+                ${text}
+            </div>
+            ${
+                (textType === 'Пункт выдачи') ?
+                `<div class="delivery__adress-info">
+                    <img src="./assets/raitingIcon.svg" alt="raiting">
+                        <div class="raiting">
+                            4.99
+                        </div>
+                        <div class="time">
+                            Ежедневно с 10 до 21 
+                        </div>
+                </div>`
+                : ''
+                
+            }
+        
+        </div>`;
+
 }
 
 deliveryForm.addEventListener('submit', (e) => {
@@ -505,16 +522,16 @@ deliveryForm.addEventListener('submit', (e) => {
         if (radio.checked) {
         switch (radio.value) {
             case '1': 
-            createDeliveryPoint(radio.name, 'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 67/1'); 
+            updateDeliveryPoint(radio.name, 'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 67/1'); 
             break;
             case '2': 
-            createDeliveryPoint(radio.name,'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 1');
+            updateDeliveryPoint(radio.name,'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 1');
              break;
             case '3':
-             createDeliveryPoint(radio.name,'г. Бишкек, улица Табышалиева, д. 57');
+             updateDeliveryPoint(radio.name,'г. Бишкек, улица Табышалиева, д. 57');
              break;
            
-            default: deliveryAdress.textContent = '';
+            default: updateDeliveryPoint(radio.name, '');
         }
        
         }
@@ -525,16 +542,16 @@ deliveryForm.addEventListener('submit', (e) => {
             
             switch (radio.value) {
                 case '4': 
-                createDeliveryPoint(radio.name, 'Бишкек, улица Табышалиева, 57'); 
+                updateDeliveryPoint(radio.name, 'Бишкек, улица Табышалиева, 57'); 
                 break;
                 case '5': 
-                createDeliveryPoint(radio.name, 'Бишкек, улица Жукеева-Пудовкина, 77/1');
+                updateDeliveryPoint(radio.name, 'Бишкек, улица Жукеева-Пудовкина, 77/1');
                 break;
                 case '6':
-                createDeliveryPoint(radio.name,' Бишкек, микрорайон Джал, улица Ахунбаева Исы, 67/1');
+                updateDeliveryPoint(radio.name,' Бишкек, микрорайон Джал, улица Ахунбаева Исы, 67/1');
                 break;
             
-                default: deliveryAdress.textContent = '';
+                default: updateDeliveryPoint(radio.name, '');
             }
     }
     }

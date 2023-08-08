@@ -1420,7 +1420,7 @@ main {
 }
 
 .total__sum, .total__items,
-.total__discount, .total__delivery {
+.total__discount, .total__delivery-info {
     display: flex;
     justify-content: space-between;
 }
@@ -1434,7 +1434,7 @@ main {
 }
 
 .total__items,
-.total__discount, .total__delivery {
+.total__discount, .total__delivery-info {
     font-size: 16px;
     font-weight: 400;
     line-height: 24px; 
@@ -1946,4 +1946,60 @@ footer p {
 
 
     
+  }
+
+  .total__delivery {
+    display: none;
+  }
+  .total__payment-edit {
+    display: none;
+  }
+
+
+  @media (min-width: 1024px) {
+    .total__delivery, .total__payment-edit {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+     
+
+    .total__delivery-header, .total__payment-header {
+        display: flex;
+        justify-content: space-between;
+    }
+    .total__delivery-title, .total__payment-title  {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px; /* 150% */
+    }
+
+    .total__delivery-adress {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 123.077% */
+    }
+
+    .total__delivery-date {
+        align-self: flex-start;
+        color: #CB11AB;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 123.077% */
+        border-bottom: 1px dashed rgba(0, 0, 0, 0.20);
+    }
+    .total__payment-field {
+        display: flex;
+    }
+
+    .payment__number {
+        font-size: 13px;
+        margin-left: 8px;
+    }
+
   }
