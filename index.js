@@ -376,7 +376,7 @@ const main = document.querySelector('main');
 
 const openModal = (modal) => {
     document.body.style.overflow = "hidden";
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
 }
 
 const closeModal = (modal) => {
@@ -411,5 +411,133 @@ paymentForm.addEventListener('submit', (e) => {
     }
     }
     closeModal(paymentModal)
+    
+})
+
+const deliveryPlaceForm = document.querySelector('.form__row.place');
+const deliveryPlaceButton = document.querySelector('.delivery__type-row .place');
+const deliveryCourierForm = document.querySelector('.form__row.courier');
+const deliveryCourierButton = document.querySelector('.delivery__type-row .courier');
+
+const deliveryTypeChangeButtonsField = document.querySelector('.delivery__type-row');
+
+
+const courierRadiosInputs = document.querySelectorAll('input[name="courier__radio"]')
+const placeRadiosInputs = document.querySelectorAll('input[name="place__radio"]')
+
+deliveryTypeChangeButtonsField.addEventListener('click', (e) => {
+    e.preventDefault();
+    if(e.target === deliveryPlaceButton) {
+        deliveryCourierForm.style.display = 'none'
+        deliveryPlaceForm.style.display = 'flex';
+        deliveryCourierButton.classList.remove('selected')
+        deliveryPlaceButton.classList.add('selected')
+        for (let radio of courierRadiosInputs) {
+            radio.checked = false
+        }
+        placeRadiosInputs[0].checked = true;
+
+    }
+    if(e.target === deliveryCourierButton) {
+        deliveryPlaceForm.style.display = 'none'
+        deliveryCourierForm.style.display = 'flex';
+        deliveryPlaceButton.classList.remove('selected')
+        deliveryCourierButton.classList.add('selected')
+        for (let radio of placeRadiosInputs) {
+            radio.checked = false
+        }
+        courierRadiosInputs[0].checked = true;
+    }
+})
+
+const courierRadios = document.querySelectorAll('.delivery__form .form_radio')
+const courierRadiosDeleteButtons = document.querySelectorAll('.delivery__place-delete')
+console.log(courierRadios)
+console.log(courierRadiosDeleteButtons)
+
+for (let i=0; i<courierRadios.length; i++) {
+    courierRadiosDeleteButtons[i].addEventListener('click', (e) => {
+        e.preventDefault();
+         courierRadios[i].remove();
+    })
+}
+
+const deliveryPlace = document.querySelector('.delivery .delivery__place');
+const deliveryAdress = document.querySelector('.delivery .delivery__adress');
+
+const deliveryPoint = document.querySelector('.delivery .delivery__point');
+const deliveryForm = document.querySelector('.delivery__form');
+
+const createDeliveryPoint = (name, text) => {
+
+const textType = (name === "courier__radio") ? 'Курьером' : "Пункт выдачи"
+    deliveryPoint.replaceChildren();
+    deliveryPoint.innerHTML =  
+    `<div class="delivery__type">
+        ${textType}
+    </div>
+    <div class="delivery__place">
+        <div class="delivery__adress">
+            ${text}
+        </div>
+        ${
+            (textType === 'Пункт выдачи') ?
+            `<div class="delivery__adress-info">
+                <img src="./assets/raitingIcon.svg" alt="raiting">
+                    <div class="raiting">
+                        4.99
+                    </div>
+                    <div class="time">
+                        Ежедневно с 10 до 21 
+                    </div>
+             </div>`
+             : ''
+            
+        }
+       
+    </div>`;
+}
+
+deliveryForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+  
+    for (let radio of placeRadiosInputs) {
+        if (radio.checked) {
+        switch (radio.value) {
+            case '1': 
+            createDeliveryPoint(radio.name, 'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 67/1'); 
+            break;
+            case '2': 
+            createDeliveryPoint(radio.name,'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 1');
+             break;
+            case '3':
+             createDeliveryPoint(radio.name,'г. Бишкек, улица Табышалиева, д. 57');
+             break;
+           
+            default: deliveryAdress.textContent = '';
+        }
+       
+        }
+    }
+
+    for (let radio of courierRadiosInputs) {
+        if (radio.checked) {
+            
+            switch (radio.value) {
+                case '4': 
+                createDeliveryPoint(radio.name, 'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 67/1'); 
+                break;
+                case '5': 
+                createDeliveryPoint(radio.name, 'г. Бишкек, микрорайон Джал, улица Ахунбаева Исы, д. 1');
+                break;
+                case '6':
+                createDeliveryPoint(radio.name,'г. Бишкек, улица Табышалиева, д. 57');
+                break;
+            
+                default: deliveryAdress.textContent = '';
+            }
+    }
+    }
+    closeModal(deliveryModal)
     
 })

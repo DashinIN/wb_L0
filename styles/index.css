@@ -88,6 +88,8 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+path{ fill:inherit; stroke:inherit; }
+
 
 
 body {
@@ -1749,10 +1751,14 @@ footer p {
  }
 
   @media (min-width: 1024px) {
+    .payment__modal {
+        justify-content: center;
+        align-items: center;
+    }
     .payment__modal .modal-content {
         width: 400px;
         height: auto;
-        margin: 180px auto 0;
+        
         border-radius: 15px;
       }
 
@@ -1807,3 +1813,96 @@ footer p {
     }
     
   }
+
+  
+
+
+.delivery__type-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+  .delivery__type-row button {
+    display: flex;
+    height: 40px;
+    padding-bottom: 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 20px;
+    border: 2px solid rgba(203, 17, 171, 0.15);
+    background: var(--system-white);
+    user-select: none;
+    color: var(--system-black);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px; /* 123.077% */
+    transition: border .2s ease-in-out;
+}
+
+.delivery__type-row button:active,
+.delivery__type-row button:hover,
+.delivery__type-row button.place.selected,
+.delivery__type-row button.courier.selected {
+    border: 2px solid var(--light-system-magenta, #CB11AB);
+}
+
+.delivery__form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 16px;
+    height: 100%;
+}
+
+.form__row p {
+   
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px; /* 123.077% */
+}
+
+.form__row.place, .form__row.courier {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.form__row.courier {
+    display: none;
+}
+
+.delivery__adress-info .place {
+    color: #A0A0A4;
+    margin-left: 8px;
+}
+
+
+.form__row.place .form_radio label:before {
+    top: 0;
+}
+
+.form_radio label {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delivery__place-delete  {
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.delivery__place-delete path{
+    fill: #A0A0A4;
+}
+.delivery__place-delete:hover path{
+    fill: #F55123;
+}
