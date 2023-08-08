@@ -376,13 +376,11 @@ const main = document.querySelector('main');
 
 const openModal = (modal) => {
     document.body.style.overflow = "hidden";
-    main.classList.add('opened');
     modal.style.display = 'block';
 }
 
 const closeModal = (modal) => {
     modal.style.display = "none";
-    main.classList.remove('opened');
     document.body.style.overflow = "";
 }
 
@@ -401,3 +399,17 @@ window.onclick = function(event) {
   }
  
 
+const paymentForm = document.querySelector('.payment__form');
+const paymentRadios = document.querySelectorAll('input[name="payment__radio"]')
+const paymentTypeField = document.querySelector('.payment-type .payment-type__info img');
+
+paymentForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    for (let radio of paymentRadios) {
+    if (radio.checked) {
+        paymentTypeField.src =  `./assets/${radio.value}.svg`;
+    }
+    }
+    closeModal(paymentModal)
+    
+})

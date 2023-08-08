@@ -546,16 +546,61 @@
     </footer>
     <div class="delivery__modal modal">
         <div class="modal-content">
-          <button class="close"><img src="./assets/closeIcon.svg" alt="search"></button>
-          <p>Доставка</p>
+            <div class="modal__header">
+                <p>Способ оплаты</p>
+                <button class="close"><img src="./assets/closeIcon.svg" alt="search"></button>
+            </div>
         </div>
       </div>
       <div class="payment__modal modal">
         <div class="modal-content">
-          <button class="close"><img src="./assets/closeIcon.svg" alt="search"></button>
-          <p>Оплата</p>
+            <form  class="payment__form">
+                <div class="modal__header">
+                    <p>Способ оплаты</p>
+                    <button class="close"><img src="./assets/closeIcon.svg" alt="search"></button>
+                </div>
+                <div class="form__row">
+                    <div class="form_radio">
+                        <input id="radio-1" type="radio" name="payment__radio" value="payment_mir" checked>
+                        <label for="radio-1">
+                            <div class="payment-type__info">
+                                <img src="./assets/payment_mir.svg" alt="" >
+                                <div class="payment-type__number">1234 56•• •••• 1234</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="form_radio">
+                        <input id="radio-2" type="radio" name="payment__radio" value="payment_visa">
+                        <label for="radio-2">
+                            <div class="payment-type__info">
+                                <img src="./assets/payment_visa.svg" alt="" >
+                                <div class="payment-type__number">1234 56•• •••• 1234</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="form_radio">
+                        <input id="radio-3" type="radio" name="payment__radio" value="payment_mastercard">
+                        <label for="radio-3">
+                            <div class="payment-type__info">
+                                <img src="./assets/payment_mastercard.svg" alt="" >
+                                <div class="payment-type__number">1234 56•• •••• 1234</div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="form_radio">
+                        <input id="radio-4" type="radio" name="payment__radio" value="payment_maestro" >
+                        <label for="radio-4">
+                            <div class="payment-type__info">
+                                <img src="./assets/payment_maestro.svg" alt="" >
+                                <div class="payment-type__number">1234 56•• •••• 1234</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <button  class="form__submit payment">Выбрать</button>
+            </form>
         </div>
-      </div>
+    </div>
 </body>
 <script src="./index.js"></script>
 </html>
