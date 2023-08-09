@@ -163,7 +163,7 @@ body {
     align-items: center;
     flex: 1 0 0;
     align-self: stretch;
-
+    user-select: none;
     color: var(--system-white);
     font-size: 26px;
     font-style: normal;
@@ -212,7 +212,11 @@ body {
         justify-content: center;
         align-items: center;
         border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.45);    
+        border: 1px solid rgba(255, 255, 255, 0.45); 
+        transition: border .1s ease;   
+    }
+    .menu__button:hover {
+        border: 1px solid var(--system-white); 
     }
 
     .menu__icon {
@@ -266,7 +270,12 @@ body {
         flex: 1 0 0;
         border-radius: 36px;
         background: rgba(255, 255, 255, 0.20);
+        transition: all .3s ease;
     }
+    .search__block:hover {
+        background: rgba(255, 255, 255, 0.432);
+    }
+
 
     .search__input {
         flex: 1 0 0;
@@ -324,6 +333,8 @@ body {
         align-self: stretch;
     }
 
+  
+
     .nav__item-icon {
         width: 28px;
         height: 28px;
@@ -335,12 +346,17 @@ body {
     }
 
     .nav__item-title {
-        color: var(--system-white);
+        color: rgba(255, 255, 255, 0.671);
         font-family: Segoe_UI;
         font-size: 13px;
         font-style: normal;
         font-weight: 400;
         line-height: 16px; /* 123.077% */
+        transition: color .2s ease;
+    }
+
+    .nav__item:hover .nav__item-title {
+        color: var(--system-white);
     }
 
     .bucket__label {
@@ -562,6 +578,7 @@ main {
     max-width: 400px;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 .bucket__item-type {
@@ -762,7 +779,7 @@ main {
         align-items: center;
     }
   
-    .bucket__item-image input+label {
+    .bucket__item-image input+labecket__item-titlel {
         display: inline-flex;
         position: static;
         align-items: center;
@@ -796,6 +813,7 @@ main {
     .bucket__item-company img {
         display: inline-block;
         margin-left: 4px;
+        cursor: pointer;
     }
 
     .bucket__item-part {
@@ -983,6 +1001,7 @@ main {
     max-width: 400px;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 .missing__item-type {
@@ -1102,6 +1121,11 @@ main {
     font-weight: 700;
     line-height: 24px; 
     margin: 2px 0px 0px 9px;
+    transition: color .2s ease;
+}
+
+.delivery__change:hover {
+    color: #f517d0;
 }
 
 .delivery__info {
@@ -1229,6 +1253,7 @@ main {
 
 .delivery__return p span{
     color: #0CB477;
+    cursor: pointer;
 }
 
 @media (min-width: 1024px) {
@@ -1322,6 +1347,11 @@ main {
     font-weight: 700;
     line-height: 24px; 
     margin: 2px 0px 0px 9px;
+    transition: all .2s ease;
+}
+
+.payment-type__change:hover{
+    color: #f517d0;
 }
 
 .payment-type__info {
