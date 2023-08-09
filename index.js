@@ -30,7 +30,9 @@ const items = [
     }
 ]
 
-const saleIncrement = 1.65;
+const sale = 0.55
+const userSale = 0.1
+const saleIncrement = 1 + sale + userSale;
 
 const priceFields = document.querySelectorAll('.bucket__item-infoprice .total-price span');
 const desktopPriceFields = document.querySelectorAll('.bucket__item-price .total-price span');
@@ -64,6 +66,9 @@ const deliveryItemsFirst = document.querySelectorAll(".delivery__items.first .de
 const deliveryItemsSecond = document.querySelectorAll(".delivery__items.second .delivery__item");
 const deliveryDateSecond = document.querySelector(".delivery__date:nth-child(2)");
 const deliveryDateTotal = document.querySelector(".total__delivery-date");
+
+
+const saleCountFields = document.querySelectorAll(".sale__count");
 
 const updateDeliveryItemBlock = (index) => {
     const isInFirstOrder = countItems[index] < items[index].count - items[index].late;
@@ -133,14 +138,21 @@ const updateTotalItemsFields = (countItems) => {
     
 }
 
-for (let i = 0; i < controls.length; i++) {
-    amount[i]=controls[i].children[1].value * items[i].cost;
-    countItems[i]=controls[i].children[1].value;
-    updateDeliveryItemBlock(i);
-    
+const updateLocalItemFields = (i, amount) => {
+    saleCountFields[i].innerHTML =  
+    `<p>– ${Math.floor(amount[i]*sale)} сом</p>
+    <p>– ${Math.floor(amount[i]*userSale)} сом</p>`;
     leftFields[i].textContent = '';
     desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
     desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
+}
+
+for (let i = 0; i < controls.length; i++) {
+    amount[i]=controls[i].children[1].value * items[i].cost;
+    countItems[i]=controls[i].children[1].value;
+
+    updateDeliveryItemBlock(i);
+    updateLocalItemFields(i, amount);
 
     controls[i].addEventListener('click', (e) => {
         if(e.target === controls[i].children[0]) {
@@ -163,13 +175,7 @@ for (let i = 0; i < controls.length; i++) {
                 updateDeliveryItemBlock(i);
                 updateTotalItemsFields(countItems)
             }
-
-            desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
-            desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
-
-            let left = items[i].count - controls[i].children[1].value
-            leftFields[i].textContent = (left != 0 && left <= 5) ?
-            `Осталось ${left} шт.` : ' ';
+            updateLocalItemFields(i, amount);
         }
         if(e.target === controls[i].children[2]) {
             if(items[i].count <= controls[i].children[1].value) {
@@ -190,13 +196,7 @@ for (let i = 0; i < controls.length; i++) {
                 updateDeliveryItemBlock(i);
                 updateTotalItemsFields(countItems)
             }
-
-            desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
-            desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
-
-            let left = items[i].count - controls[i].children[1].value
-            leftFields[i].textContent = (left != 0 && left <= 5) ?
-            `Осталось ${left} шт.` : ' ';
+            updateLocalItemFields(i, amount);
         }
     })
     
@@ -222,17 +222,9 @@ for (let i = 0; i < controls.length; i++) {
             updateDeliveryItemBlock(i);
             updateTotalItemsFields(countItems)
         }
-
-        desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
-        desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
-
-        let left = items[i].count - controls[i].children[1].value;
-        leftFields[i].textContent = (left != 0 && left <= 5) ?
-        `Осталось ${left} шт.` : ' ';
+        updateLocalItemFields(i, amount);
     })
-    
 }
-
 
 updateTotalPriceFields(amount);
 updateTotalItemsFields(countItems);
@@ -471,8 +463,7 @@ deliveryTypeChangeButtonsField.addEventListener('click', (e) => {
 
 const courierRadios = document.querySelectorAll('.delivery__form .form_radio')
 const courierRadiosDeleteButtons = document.querySelectorAll('.delivery__place-delete')
-console.log(courierRadios)
-console.log(courierRadiosDeleteButtons)
+
 
 for (let i=0; i<courierRadios.length; i++) {
     courierRadiosDeleteButtons[i].addEventListener('click', (e) => {
