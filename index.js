@@ -145,6 +145,9 @@ const updateLocalItemFields = (i, amount) => {
     leftFields[i].textContent = '';
     desktopPriceFields[i].textContent = priceFields[i].textContent = amount[i];
     desktopCrossedPriceFields[i].textContent = crossedPriceFields[i].textContent = Math.floor(amount[i]*saleIncrement);
+    let left = items[i].count - controls[i].children[1].value
+            leftFields[i].textContent = (left != 0 && left <= 5) ?
+            `Осталось ${left} шт.` : ' ';
 }
 
 for (let i = 0; i < controls.length; i++) {
