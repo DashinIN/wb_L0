@@ -46,7 +46,7 @@ const totalField = document.querySelector('.total__sum-field span')
 const totalField2 = document.querySelector('.total__items-field span')
 const totalDiscountField = document.querySelector('.total__discount-field span')
 const totalItemsField = document.querySelector('.total__items p')
-const totalItemsDesktopIcon = document.querySelector('.bucket__label')
+const totalItemsIcons = document.querySelectorAll('.bucket__label')
 
 const deleteButtons = document.querySelectorAll('.bucket__item-icons>button:nth-child(2)');
 const bucketItems = document.querySelectorAll('.bucket__item');
@@ -120,13 +120,15 @@ const updateTotalItemsFields = (countItems) => {
     totalItemsField.textContent = bucketMenuHiddenCountField.textContent = 
      `${totalItemsCount} ${itemDecl(totalItemsCount)}`;
  
-    if (totalItemsCount > 0) {
-        if(totalItemsDesktopIcon.classList.contains('hidden')) {
-            totalItemsDesktopIcon.classList.remove('hidden')
-        }
-        totalItemsDesktopIcon.textContent = totalItemsCount;
-    } else {
-        totalItemsDesktopIcon.classList.add('hidden')
+    for (let icon of totalItemsIcons) {
+        if (totalItemsCount > 0) {
+            if(icon.classList.contains('hidden')) {
+                icon.classList.remove('hidden')
+            }
+            icon.textContent = totalItemsCount;
+            } else {
+                icon.classList.add('hidden')
+            }
     }
     
 }
