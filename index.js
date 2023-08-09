@@ -378,10 +378,12 @@ const paymentModalCloseButton = document.querySelector('.payment__modal .close')
 
 
 const main = document.querySelector('main');
+const footer = document.querySelector('footer');
 
 const openModal = (modal) => {
     document.body.style.overflow = "hidden";
     main.classList.add("opened");
+    footer.classList.add("opened");
     modal.style.display = 'flex';
 }
 
@@ -389,6 +391,7 @@ const closeModal = (modal) => {
     modal.style.display = "none";
     document.body.style.overflow = "";
     main.classList.remove("opened");
+    footer.classList.remove("opened");
 }
 
 deliveryChangeButton.addEventListener('click', () => openModal(deliveryModal))
@@ -565,7 +568,7 @@ deliveryForm.addEventListener('submit', (e) => {
 const userFormInputs = document.querySelectorAll('.input__wrapper input')
 const upperPlaceholders = document.querySelectorAll('.upper-placeholder')
 const errorPlaceholders = document.querySelectorAll('.error-placeholder')
-
+const formLines = document.querySelectorAll('.input__wrapper .line')
 
 for (let i=0; i < userFormInputs.length; i++) {
     userFormInputs[i].addEventListener('input', () => {
@@ -598,8 +601,12 @@ const validateName = () => {
     const isNotEmpty = userFormInputName.value.length > 0;
     if(isNotEmpty) {
         userFormInputNameError.style.display =  'none'
+        userFormInputName.classList.remove('errorText')
+        formLines[0].classList.remove('errorBlock')
     } else {
         userFormInputNameError.textContent = 'Укажите имя'
+        userFormInputName.classList.add('errorText')
+        formLines[0].classList.add('errorBlock')
     }
 }
 const validateNameDebounced = debounce(validateName, 400);
@@ -614,6 +621,8 @@ const validateSurname = () => {
     const isNotEmpty = userFormInputSurname.value.length > 0;
     if(isNotEmpty) {
         userFormInputSurnameError.style.display =  'none'
+        userFormInputSurname.classList.remove('errorText')
+        formLines[1].classList.remove('errorBlock')
     } else {
         userFormInputSurnameError.textContent = 'Введите фамилию'
     }
@@ -635,8 +644,14 @@ const validateEmail = () => {
 
    if (!isNotEmpty) {
     userFormInputMailError.textContent = 'Укажите электронную почту'
+    userFormInputMail.classList.remove('errorText')
+    formLines[2].classList.remove('errorBlock')
    }
 
+   if (!isNotEmpty || isValid) {
+    userFormInputMail.classList.remove('errorText')
+    formLines[2].classList.remove('errorBlock')  
+ }
    userFormInputMailError.style.display =
     (!isNotEmpty || isValid)   ? 'none' : 'block';
    
@@ -644,6 +659,8 @@ const validateEmail = () => {
     userFormInputMailError.textContent =
      'Проверьте адрес электронной почты';
      userFormInputMailError.style.display = 'block'
+     userFormInputMail.classList.add('errorText')
+     formLines[2].classList.add('errorBlock')
    }
 }
 const validateEmailDebounced = debounce(validateEmail, 400);
@@ -677,15 +694,23 @@ var eventCalllback = function(e) {
     const isNotEmpty = userFormInputPhone.value.length > 0;
     if(!isNotEmpty) {
         upperPlaceholders[3].style.display = 'none';
-        userFormInputPhoneError.textContent = 'Укажите электронную почту'     
+        userFormInputPhoneError.textContent = 'Укажите электронную почту'   
     }
     userFormInputPhoneError.style.display =
      (!isNotEmpty || isValid)   ? 'none' : 'block';
+
+     if (!isNotEmpty || isValid) {
+        userFormInputPhone.classList.remove('errorText')
+        formLines[3].classList.remove('errorBlock')  
+     }
     
     if (!isValid && isNotEmpty) {
         userFormInputPhoneError.textContent =
       'Формат: +9 999 999 99 99';
-      userFormInputPhoneError.style.display = 'block'
+      userFormInputPhoneError.style.display = 'block';
+      userFormInputPhone.classList.add('errorText')
+      formLines[3].classList.add('errorBlock')
+      
     }
  }
 
@@ -702,11 +727,17 @@ const userFormInputInnError = document.querySelector(".error-placeholder.inn")
 const validateInn = () => {
     const isValid = userFormInputInn.value.length <= 14;
     const isNotEmpty = userFormInputInn.value.length > 0;
-   
+    userFormInputInn.classList.remove('errorText')
+    formLines[4].classList.remove('errorBlock')
 
     if (!isNotEmpty) {
-        userFormInputInnError.textContent = 'Укажите электронную почту'
+        userFormInputInnError.textContent = 'Укажите ИНН'
+        userFormInputInn.classList.remove('errorText')
+        formLines[4].classList.remove('errorBlock')
+        
        }
+
+       
     userFormInputInnError.style.display =
      (!isNotEmpty || isValid)   ? 'none' : 'block';
     
@@ -714,6 +745,8 @@ const validateInn = () => {
         userFormInputInnError.textContent =
       'Проверьте ИНН';
       userFormInputInnError.style.display = 'block'
+      userFormInputInn.classList.add('errorText')
+        formLines[4].classList.add('errorBlock')
     }
  }
 
@@ -729,6 +762,8 @@ const userFormSubmitButton = document.querySelector(".total__paybutton")
     for (let i=0; i < userFormInputs.length; i++) {
          if(userFormInputs[i].value.length === 0) {
             errorPlaceholders[i].style.display = 'block';
+            userFormInputs[i].classList.add('errorText');
+            formLines[i].classList.add('errorBlock');
          }   
 
          if(errorPlaceholders[i].style.display == 'block')  {

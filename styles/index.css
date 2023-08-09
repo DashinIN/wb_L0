@@ -1635,6 +1635,14 @@ footer p {
      transform: rotate(-180deg);
  }
 
+ .errorText {
+    color: #F55123;
+ }
+ .errorBlock {
+    background-color: #F55123;
+ }
+
+
 
  .modal {
     display: none;
