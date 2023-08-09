@@ -649,13 +649,48 @@ main {
     display: flex;
     margin-left: 15px;
 }
+.bucket__item-icons  button {
+    margin-left: 2px;
+}
 
-.bucket__item-icon {
-    padding: 0 12px;
+.missing__item-icon path{
+    fill: black; 
+}
+
+.bucket__item-icon path{
+    fill: black;
 }
 
 .bucket__item-price {
     display: none;
+}
+
+.bucket__item-icon {
+    margin-right: 12px;
+}
+.bucket__item-icons button {
+    margin-left: 12px;
+}
+
+.missing__item-icon {
+    margin-right: 12px;
+}
+.missing__item-icons button {
+    margin-left: 12px;
+}
+
+.bucket__item-icons button:nth-child(1):hover path {
+    fill: #CB11AB;
+}
+.bucket__item-icons button:nth-child(2):hover path {
+    fill: #F55123;
+}
+
+.missing__item-icons button:nth-child(1):hover path {
+    fill: #CB11AB;
+}
+.missing__item-icons button:nth-child(2):hover path {
+    fill: #F55123;
 }
 
 @media (min-width: 1024px) {
@@ -811,9 +846,8 @@ main {
         margin-left: 38px;
     }
 
-    .bucket__item-icon{
-        padding: 0px 7px;
-    }
+    
+
 
     .line {
         display: none;
@@ -831,6 +865,51 @@ main {
     .bucket__item-price .crossed {
         margin-top: 5px;
     } 
+
+    .bucket__item-icon {
+        opacity: 0;
+        transition: all .2s ease;
+        margin-right: 10px;
+    }
+    .missing__item-icon {
+        opacity: 0;
+        transition: all .2s ease;
+        margin-right: 10px;
+    }
+
+    .missing__item-icon {
+        opacity: 0;
+        transition: all .2s ease;
+        margin-right: 10px;
+    }
+
+    .missing__item-icons button {
+        margin-left: 6px;
+    }
+
+    .bucket__item-icons button {
+        margin-left: 6px;
+    }
+    .bucket__item-icon path{
+        fill: black;
+       transition: fill .2s ease;
+    }
+
+    .missig__item-icon path{
+        fill: black;
+       transition: fill .2s ease;
+    }
+    
+    .bucket__item:hover .bucket__item-icon{
+        opacity: 1;
+    }
+    
+    .missing__item:hover .missing__item-icon{
+        opacity: 1;
+    }
+    
+    
+   
 }
 
 .missing {
@@ -840,6 +919,7 @@ main {
 .missing__row {
     overflow: hidden;
     transition: max-height 0.4s ease-out;
+    color: #A0A0A4;
 }
 
 .missing__menu {
@@ -925,10 +1005,7 @@ main {
     margin-left: 15px;
 }
 
-.missing__item-icon {
-    padding: 0 12px;
 
-}
 
 @media (min-width: 1024px) { 
 
@@ -998,9 +1075,7 @@ main {
         margin-left: 0;
         justify-content: flex-end;
     }
-    .missing__item-icon {
-        padding: 0 8px;
-    }
+    
 }
 
 .delivery {
