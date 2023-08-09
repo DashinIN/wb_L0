@@ -169,7 +169,7 @@ for (let i = 0; i < controls.length; i++) {
 
             let left = items[i].count - controls[i].children[1].value
             leftFields[i].textContent = (left != 0 && left <= 5) ?
-            `Осталось ${left} шт.` : '';
+            `Осталось ${left} шт.` : ' ';
         }
         if(e.target === controls[i].children[2]) {
             if(items[i].count <= controls[i].children[1].value) {
@@ -196,7 +196,7 @@ for (let i = 0; i < controls.length; i++) {
 
             let left = items[i].count - controls[i].children[1].value
             leftFields[i].textContent = (left != 0 && left <= 5) ?
-            `Осталось ${left} шт.` : '';
+            `Осталось ${left} шт.` : ' ';
         }
     })
     
@@ -228,7 +228,7 @@ for (let i = 0; i < controls.length; i++) {
 
         let left = items[i].count - controls[i].children[1].value;
         leftFields[i].textContent = (left != 0 && left <= 5) ?
-        `Осталось ${left} шт.` : '';
+        `Осталось ${left} шт.` : ' ';
     })
     
 }
@@ -560,3 +560,181 @@ deliveryForm.addEventListener('submit', (e) => {
     closeModal(deliveryModal)
     
 })
+
+
+const userFormInputs = document.querySelectorAll('.input__wrapper input')
+const upperPlaceholders = document.querySelectorAll('.upper-placeholder')
+const errorPlaceholders = document.querySelectorAll('.error-placeholder')
+
+
+for (let i=0; i < userFormInputs.length; i++) {
+    userFormInputs[i].addEventListener('input', () => {
+        upperPlaceholders[i].style.display = 
+        (userFormInputs[i].value.length > 0) ?
+        'block' : 'none'
+        
+    })
+}
+
+function debounce(func, wait) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            func.apply(context, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+
+const userFormInputName = document.querySelector(".input__wrapper input[name='Имя']")
+const userFormInputNameError = document.querySelector(".error-placeholder.name")
+
+
+const validateName = () => {
+    const isNotEmpty = userFormInputName.value.length > 0;
+    if(isNotEmpty) {
+        userFormInputNameError.style.display =  'none'
+    } else {
+        userFormInputNameError.textContent = 'Укажите имя'
+    }
+}
+const validateNameDebounced = debounce(validateName, 400);
+userFormInputName.addEventListener('input', validateNameDebounced)
+
+
+const userFormInputSurname = document.querySelector(".input__wrapper input[name='Фамилия']")
+const userFormInputSurnameError = document.querySelector(".error-placeholder.surname")
+
+
+const validateSurname = () => {
+    const isNotEmpty = userFormInputSurname.value.length > 0;
+    if(isNotEmpty) {
+        userFormInputSurnameError.style.display =  'none'
+    } else {
+        userFormInputSurnameError.textContent = 'Введите фамилию'
+    }
+}
+const validateSurnameDebounced = debounce(validateSurname, 400);
+userFormInputSurname.addEventListener('input', validateSurnameDebounced)
+
+
+const userFormInputMail = document.querySelector(".input__wrapper input[name='Почта']")
+const userFormInputMailError = document.querySelector(".error-placeholder.mail")
+
+
+const validateEmail = () => {
+   const isValid = (
+    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+   .test(userFormInputMail.value)
+   )
+   const isNotEmpty = userFormInputMail.value.length > 0;
+
+   if (!isNotEmpty) {
+    userFormInputMailError.textContent = 'Укажите электронную почту'
+   }
+
+   userFormInputMailError.style.display =
+    (!isNotEmpty || isValid)   ? 'none' : 'block';
+   
+   if (!isValid && isNotEmpty) {
+    userFormInputMailError.textContent =
+     'Проверьте адрес электронной почты';
+     userFormInputMailError.style.display = 'block'
+   }
+}
+const validateEmailDebounced = debounce(validateEmail, 400);
+userFormInputMail.addEventListener('input', validateEmailDebounced)
+
+
+
+const userFormInputPhone = document.querySelector(".input__wrapper input[name='Телефон']")
+const userFormInputPhoneError = document.querySelector(".error-placeholder.phone")
+
+var eventCalllback = function(e) {
+    let el = e.target,
+      pattern = el.dataset.phonePattern
+      matrix_def = "+7 ___ ___ __ __"
+      matrix = pattern ? pattern : matrix_def
+      i = 0
+      def = matrix.replace(/\D/g, ""),
+      val = e.target.value.replace(/\D/g, "");
+    e.target.value = matrix.replace(/./g, function(a) {
+      return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
+    });
+
+  }
+ userFormInputPhone.addEventListener('input', eventCalllback);
+
+ const validatePhone = () => {
+    const isValid = (
+        /^((\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{10}$/
+    .test(userFormInputPhone.value.replaceAll(' ', ''))
+    )
+    const isNotEmpty = userFormInputPhone.value.length > 0;
+    if(!isNotEmpty) {
+        upperPlaceholders[3].style.display = 'none';
+        userFormInputPhoneError.textContent = 'Укажите электронную почту'     
+    }
+    userFormInputPhoneError.style.display =
+     (!isNotEmpty || isValid)   ? 'none' : 'block';
+    
+    if (!isValid && isNotEmpty) {
+        userFormInputPhoneError.textContent =
+      'Формат: +9 999 999 99 99';
+      userFormInputPhoneError.style.display = 'block'
+    }
+ }
+
+ const validatePhoneDebounced = debounce(validatePhone, 400);
+ userFormInputPhone.addEventListener('input', validatePhoneDebounced)
+
+    
+  
+
+const userFormInputInn = document.querySelector(".input__wrapper input[name='ИНН']")
+const userFormInputInnError = document.querySelector(".error-placeholder.inn")
+
+
+const validateInn = () => {
+    const isValid = userFormInputInn.value.length <= 14;
+    const isNotEmpty = userFormInputInn.value.length > 0;
+   
+
+    if (!isNotEmpty) {
+        userFormInputInnError.textContent = 'Укажите электронную почту'
+       }
+    userFormInputInnError.style.display =
+     (!isNotEmpty || isValid)   ? 'none' : 'block';
+    
+    if (!isValid && isNotEmpty) {
+        userFormInputInnError.textContent =
+      'Проверьте ИНН';
+      userFormInputInnError.style.display = 'block'
+    }
+ }
+
+const validateInnDebounced = debounce(validateInn, 400);
+userFormInputInn.addEventListener('input', validateInnDebounced)
+
+    
+const userForm = document.querySelector(".receiver__form")
+const userFormSubmitButton = document.querySelector(".total__paybutton")
+
+ userFormSubmitButton.addEventListener('click', () => {
+    let errors = 0;
+    for (let i=0; i < userFormInputs.length; i++) {
+         if(userFormInputs[i].value.length === 0) {
+            errorPlaceholders[i].style.display = 'block';
+         }   
+
+         if(errorPlaceholders[i].style.display == 'block')  {
+            errors++;
+         }
+    }
+    (errors>0)  ?  userForm.scrollIntoView() :  alert('Заказ успешно оформлен!')
+    
+ })

@@ -476,28 +476,36 @@
             <form action="" class="receiver__form">
                 <div class="form__block">
                     <div class="input__wrapper">
-                        <input type="text" placeholder="Имя">
+                        <div class="upper-placeholder">Имя</div>
+                        <input type="text" placeholder="Имя" name="Имя">
                         <div class="line"></div>
+                        <div class="error-placeholder name">Укажите имя</div>
                     </div>
                     <div class="input__wrapper">
-                        <input type="text" placeholder="Фамилия">
+                        <div class="upper-placeholder">Фамилия</div>
+                        <input type="text" placeholder="Фамилия" name="Фамилия">
                         <div class="line"></div>
+                        <div class="error-placeholder surname">Введите фамилию</div>
                     </div>
                 </div>
                 <div class="form__block">
                     <div class="input__wrapper">
-                        <input type="email" placeholder="Почта">
+                        <div class="upper-placeholder">Почта</div>
+                        <input type="email" placeholder="Почта" name="Почта">
                         <div class="line"></div>
+                        <div class="error-placeholder mail">Укажите электронную почту</div>
                     </div>
                     <div class="input__wrapper">
-                        <input type="tel" placeholder="Телефон" value="+7 (988) 123-45-67">
-                        <label class="upper" for="">Телефон</label>
+                        <div class="upper-placeholder">Телефон</div>
+                        <input type="tel" placeholder="Телефон" name="Телефон">
                         <div class="line"></div>
+                        <div class="error-placeholder phone">Укажите номер телефона</div>
                     </div>
                     <div class="input__wrapper">
-                        <input type="number" placeholder="ИНН">
+                        <div class="upper-placeholder">ИНН</div>
+                        <input type="number" placeholder="ИНН" name="ИНН">
                         <div class="line"></div>
-                        <div class="input__info">Для таможенного оформления</div>
+                        <div class="error-placeholder inn">Укажите ИНН</div>
                     </div>
                 </div>
             </form>

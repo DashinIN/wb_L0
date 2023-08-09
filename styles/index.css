@@ -94,6 +94,9 @@ input+label {
     cursor: pointer;
 }
 
+html {
+    scroll-behavior: smooth;
+  }
 
 body {
     font-family: Segoe_UI;
@@ -1414,7 +1417,11 @@ main {
     }
 
 }
-
+@media (min-width: 1400px) {
+    .receiver__form {
+         max-width: 702px;  
+    }
+}
 
 .total {
     margin-top: 16px;
@@ -1981,7 +1988,7 @@ footer p {
     }
 
     .total__delivery-adress {
-        font-size: 14px;
+        font-size: 13px;
         font-style: normal;
         font-weight: 400;
         line-height: 16px; /* 123.077% */
@@ -2050,4 +2057,31 @@ footer p {
     .mobile__menu {
         display: none;
     }
+}
+
+
+.receiver__form input {
+    width: 100%;
+}
+
+.upper-placeholder {
+    display: none;
+    position: absolute;
+    top: -20px;
+    color: var(--system-gray, #A0A0A4);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 123.077% */
+}
+
+.error-placeholder {
+    display: none;
+    position: absolute;
+    top: 30px;
+    color: var(--system-red, #F55123);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
 }
