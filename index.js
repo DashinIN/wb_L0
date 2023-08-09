@@ -342,9 +342,11 @@ const toggleBucketRow = () => {
     bucketHideButton.classList.toggle('rotated')
     bucketRow.classList.toggle('hidden')
     bucketMenu.classList.toggle('hidden')
+    bucketRow.style.overflow='hidden';
     bucketMenuHidden.classList.toggle('hidden')
     if(bucketRow.classList.contains("hidden")) {
         bucketRow.style.maxHeight = 0;
+        setTimeout(() => bucketRow.style.overflow='visible', 400)
        }
        else {
         bucketRow.style.maxHeight = bucketRow.scrollHeight + "px";
