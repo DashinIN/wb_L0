@@ -445,6 +445,8 @@ main {
 
 .bucket__menu-check input:checked+label::before {
     background-image: url(../assets/checkbox.svg);
+    border: 1px solid #CB11AB;
+    background-color: #CB11AB;
 }
 
 .bucket__menu-check {
@@ -1028,7 +1030,9 @@ main {
     display: flex;
     margin-left: 15px;
 }
-
+.missing__item-type p:nth-child(2) {
+    display: none;
+}
 
 
 @media (min-width: 1024px) { 
@@ -1048,6 +1052,12 @@ main {
         margin-top: 16px;
         justify-content: space-between;
     }
+    .missing__item-type p:nth-child(2) {
+        display: block;
+    }
+    
+
+    
      
     .missing__menu {
         margin-top: 0;
@@ -1572,7 +1582,7 @@ main {
 
 .total__info {
     display: flex;
-    margin-top: 16px;
+    margin-top: 13px;
     padding: 8px 8px 12px;
     border-radius: 8px;
     background:  #F0ECF4;
@@ -1595,7 +1605,7 @@ main {
 }
 
 .total__payment {
-    margin-top: 16px;
+    margin-top: 18px;
     padding: 8px 8px 12px;
     border-radius: 8px;
     background: #F0ECF4;
@@ -1688,10 +1698,20 @@ main {
     font-size: 13px;
     font-weight: 400;
     line-height: 16px; 
+    color: var(--system-black);
+}
+
+.total__agree span {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
 }
 
 
 @media (min-width: 1024px) {
+
+    .total__agree {
+        margin-right: 5px;
+    }
+
     main {
         display: flex;
         gap: 32px;
@@ -2132,6 +2152,7 @@ footer p {
         font-style: normal;
         font-weight: 400;
         line-height: 16px; /* 123.077% */
+        margin-right: 5px;
     }
 
     .total__delivery-date {
