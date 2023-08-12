@@ -204,8 +204,14 @@ for (let i = 0; i < controls.length; i++) {
     })
     
     controls[i].children[1].addEventListener('change', (e) => {
+
+        if(plusButtons[i].classList.contains('gray')) {
+            plusButtons[i].classList.remove('gray')
+        }
+
         if(items[i].count <= e.target.value) {
             controls[i].children[1].value = items[i].count;
+            plusButtons[i].classList.add('gray')
         }
         if(e.target.value < 1) {
             controls[i].children[1].value = 1
@@ -213,6 +219,7 @@ for (let i = 0; i < controls.length; i++) {
         if(minusButtons[i].classList.contains('gray')) {
             minusButtons[i].classList.remove('gray')
         }
+        
         controls[i].children[1].value = e.target.value;
         if(controls[i].children[1].value == 1) {
             minusButtons[i].classList.add('gray')
