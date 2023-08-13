@@ -1583,10 +1583,10 @@ main {
 
 .total__info {
     display: flex;
-    margin-top: 13px;
+    margin-top: 18px;
     padding: 8px 8px 12px;
     border-radius: 8px;
-    background:  #f6f6fa;
+    background:  #F0ECF4;
     
 }
 
@@ -1607,10 +1607,10 @@ main {
 }
 
 .total__payment {
-    margin-top: 18px;
+    margin-top: 15px;
     padding: 8px 8px 12px;
     border-radius: 8px;
-    background: #f6f6fa;
+    background:  #F0ECF4;
 }
 
 .total__payment-check {
@@ -1709,6 +1709,18 @@ main {
 
 
 @media (min-width: 1024px) {
+
+    .total__info {
+        background:  #f6f6fa;
+        margin-top: 13px;
+    }
+
+    .total__payment {
+        background:  #f6f6fa;
+        margin-top: 18px;
+        
+    }
+    
 
     .total__agree {
         margin-right: 5px;
@@ -2181,7 +2193,7 @@ footer p {
   .mobile__menu {
     display: flex;
     height: 56px;
-    padding: 0px 13px;
+    padding: 29px 13px;
     justify-content: space-between;
     align-items: center;
     align-self: stretch;
@@ -2196,7 +2208,7 @@ footer p {
 
   .mobile__menu .bucket__label {
     position: absolute;
-    top: -1px;
+    top: -4px;
     right: -6px;
     height: 16px;
     width: 16px;

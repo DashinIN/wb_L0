@@ -114,13 +114,14 @@ let deletedItems = 0;
 
 
 const infoField = document.querySelector(".total__payment-info");
+const infoField2 = document.querySelector("p.payment-type__help");
+
 
 paymentTypeCheckbox.addEventListener('change', function() {
     if(this.checked) {
-        paymentButton.textContent = `Оплатить ${totalAmount} сом`
-        infoField.style.display = 'none'
+        infoField.style.display = infoField2.style.display  = 'none';
     } else {
-        infoField.style.display = 'block'
+        infoField.style.display = infoField2.style.display  = 'block';
     }
 })
 
@@ -131,7 +132,6 @@ const updateTotalPriceFields = (amount) => {
     totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
     if(paymentTypeCheckbox.checked) {
         paymentButton.textContent = `Оплатить ${totalAmount} сом`
-        infoField.style.display = 'none'
     } 
 }
 
