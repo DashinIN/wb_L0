@@ -112,12 +112,27 @@ let countItems = [];
 let checkItems = items.length;
 let deletedItems = 0;
 
+
+const infoField = document.querySelector(".total__payment-info");
+
+paymentTypeCheckbox.addEventListener('change', function() {
+    if(this.checked) {
+        paymentButton.textContent = `Оплатить ${totalAmount} сом`
+        infoField.style.display = 'none'
+    } else {
+        infoField.style.display = 'block'
+    }
+})
+
 const updateTotalPriceFields = (amount) => {
     let totalAmount = amount.reduce((a,b)=>a+b,0);
     totalField.textContent =  bucketMenuHiddenAmountField.textContent = totalAmount;
     totalField2.textContent  = Math.floor(totalAmount*saleIncrement);
     totalDiscountField.textContent = Math.ceil(totalAmount*(saleIncrement-1));
-    if(paymentTypeCheckbox.checked) paymentButton.textContent = `Оплатить ${totalAmount} сом`;
+    if(paymentTypeCheckbox.checked) {
+        paymentButton.textContent = `Оплатить ${totalAmount} сом`
+        infoField.style.display = 'none'
+    } 
 }
 
 const updateTotalItemsFields = (countItems) => {
