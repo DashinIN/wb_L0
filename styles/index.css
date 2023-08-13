@@ -814,6 +814,7 @@ main {
     }
     .wrapper {
         position: relative;
+        cursor: pointer;
     }
 
     .bucket__item-company img {
@@ -2128,7 +2129,7 @@ footer p {
 
   @media (min-width: 1024px) {
     .total__delivery, .total__payment-edit {
-        margin-top: 24px;
+        padding-top: 24px;
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -2289,14 +2290,8 @@ footer p {
         z-index: 2;     
     }
 
-    .total__info {
-        position: relative;
-    }
+   
 
-    .total__info:hover .popup{
-        opacity: 1;   
-        z-index: 2;     
-    }
 
     .total__info .popup {
         top: 100%;
